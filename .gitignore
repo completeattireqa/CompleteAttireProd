@@ -3,3 +3,7 @@ pub/static/
 var/
 generated/
 pub/media/
+vendor_bak/
+*.zip
+*.tar.gz
+*.gz
