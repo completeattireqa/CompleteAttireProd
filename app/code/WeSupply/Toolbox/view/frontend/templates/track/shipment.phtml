@@ -1,0 +1,9 @@
+<?php
+    $platformName = $this->getPlatform();
+    $trackId = $this->getTrackingCode();
+    $weSupplyTrackUrl = $this->getWeSupplyTrackUrl() . $trackId;
+?>
+
+<div class="embedded-iframe-container">
+    <iframe class="embedded-iframe" style="width: 100%;" width="100%" src="<?php echo $weSupplyTrackUrl ?>?platformType=<?php echo $platformName ?>" frameborder="0" scrolling="no" allowfullscreen></iframe>
+</div>

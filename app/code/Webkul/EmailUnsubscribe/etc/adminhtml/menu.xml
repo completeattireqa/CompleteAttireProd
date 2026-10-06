@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!-- /**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_EmailUnsubscribe
+ * @author    Webkul
+ * @copyright Copyright (c)   Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+    	<add id="Webkul_EmailUnsubscribe::subscription" title="Subscription Manager" 
+			 module="Webkul_EmailUnsubscribe" parent="Webkul_Marketplace::marketplace" sortOrder="25" resource="Webkul_EmailUnsubscribe::subscription"/>
+	    <add id="Webkul_EmailUnsubscribe::sellers_view" title="View Unsubscribed Sellers"
+			module="Webkul_EmailUnsubscribe" sortOrder="5" parent="Webkul_EmailUnsubscribe::subscription"
+	        action="email/sellers/index/" resource="Webkul_EmailUnsubscribe::sellers_view" />
+		<add id="Webkul_EmailUnsubscribe::reason_view" title="View Unsubscription Reasons"
+			module="Webkul_EmailUnsubscribe" sortOrder="5" parent="Webkul_EmailUnsubscribe::subscription"
+	        action="email/reason/view/" resource="Webkul_EmailUnsubscribe::reason_view" />
+   	</menu>
+</config>

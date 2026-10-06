@@ -1,0 +1,47 @@
+.wk-row{
+    display: flex;
+    padding: 5px;
+}
+label{
+    font-weight: bolder;
+    display: block;
+    padding-top: 10px;
+}
+#section-templates > div {
+    padding-right: 30px;
+}
+#section-global > div {
+    padding-right: 30px;
+}
+#go-back{
+    float: right;
+    background: none;
+    border: none;
+    padding: 10px;
+    font-size: 15px;
+    padding-right: 20px;
+    font-weight: 600;
+}
+#save-template {
+    float: right;
+    padding: 10px;
+    font-size: 15px;
+}
+.flex-item, .flex-full-width {
+    padding-right: 20px;
+}
+#section-inputs{
+    display: inline-grid;
+}
+#section-prompt > label {
+    display: block;
+}
+.wk-display-none {
+    display: none;
+}
+.textarea{
+    width: 100%;
+}
+input#template-title{
+    width: 50rem;
+}

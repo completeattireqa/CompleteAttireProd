@@ -1,0 +1,1 @@
+/opt/bitnami/apps/magento/htdocs/app/code/WeltPixel/OwlCarouselSlider/view/frontend/web/js/owl.confi

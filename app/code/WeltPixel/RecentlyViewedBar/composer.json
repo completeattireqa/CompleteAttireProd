@@ -1,0 +1,24 @@
+{
+    "name": "weltpixel/m2-recently-viewed-products",
+    "description": "WeltPixel Advanced Recently Viewed Module",
+    "require": {
+        "weltpixel/m2-weltpixel-backend": "~1.0 | master",
+        "magento/module-admin-notification": "100.*|101.*",
+        "magento/module-catalog": "102.* | 101.* | 100.*",
+        "magento/module-cms": "102.* | 101.* | 100.*"
+    },
+    "type": "magento2-module",
+    "version": "1.8.4",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "WeltPixel\\RecentlyViewedBar\\": ""
+        }
+    }
+}

@@ -1,0 +1,35 @@
+#wk_mpgrouped_products {
+    border: 1px solid #c2c2c2;
+    padding: 20px;
+    overflow: auto;
+}
+
+#grouped-product-container {
+    margin: 10px;
+    padding: 10px;
+}
+.wk-add-grouped-button {
+    margin-top: 5px;
+}
+#grouped-product-container th.no-link {
+    background: #514943;
+    text-align: center;
+    color: white;
+}
+#grouped-product-container tbody td {
+    text-align: center !important;
+}
+.selectmenu-toggle {
+  padding-right: 0rem!important;
+}
+.admin__data-grid-filters-wrap .admin__form-field .admin__form-field .admin__form-field-label {
+  width: 20%!important;
+}
+.action-multicheck-wrap{
+    display: inline-block !important;
+    height: 1.6rem;
+    padding-top: 1px;
+    position: relative;
+    width: 3.1rem;
+    z-index: 200;
+}

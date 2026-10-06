@@ -1,0 +1,1 @@
+/opt/bitnami/apps/magento/htdocs/app/code/WeltPixel/InstagramWidget/view/frontend/web/js/Shuffle.js

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright 2016 © webmull. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * Signature Module
+ *
+ * @author     webmull Team <info@webmull.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    
+    <preference for="Magento\User\Controller\Adminhtml\Auth\ResetPassword" type="Webmull\Backend\Controller\Adminhtml\Auth\ResetPassword" />
+    
+</config>

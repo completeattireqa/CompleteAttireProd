@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Webkul Software.
+*
+* @category  Webkul
+* @package   Webkul_MpBraintree
+* @author    Webkul
+* @copyright Copyright (c) 2010-2017 Webkul Software Private Limited (https://webkul.com)
+* @license   https://store.webkul.com/license.html
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="sales_order_tabs">
+        <block class="Webkul\MpBraintree\Block\Adminhtml\Sales\Order\View\EscrowInfo" name="escrow_info" />
+            <action method="addTab">
+                <argument name="name" xsi:type="string">mpbraintree_escrow_info</argument>
+                <argument name="block" xsi:type="string">escrow_info</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

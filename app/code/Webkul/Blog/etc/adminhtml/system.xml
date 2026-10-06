@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * Webkul Software
+ *
+ * @category    Webkul
+ * @package     Webkul_Blog
+ * @author      Webkul
+ * @copyright   Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license     https://store.webkul.com/license.html
+ */ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		<tab id="webkul" translate="label" sortOrder="10">
+			<label>Webkul</label>
+		</tab>
+		<section id="Content" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+			<label>Webkul Blog</label>
+			<tab>webkul</tab>
+			<resource>Webkul_Blog::config_comments</resource>
+			<group id="character" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>General Blog Settings</label>
+				<field id="limit" translate="label comment" sortOrder="0" type="text" showInDefault="1" showInWebsite="1" showInStore="0">
+					<label>Set display character limit for content</label>
+                    <validate>required-entry validate-not-negative-number validate-digits</validate>
+				</field>
+				<field id="options" translate="label comment" sortOrder="1" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Select comment approval method</label>
+                    <source_model>Webkul\Blog\Model\Config\Source\Effect</source_model>
+                </field>
+				<field id="bloggerapproval" translate="label comment" sortOrder="2" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Select blogger approval method</label>
+                    <validate>required-entry</validate>
+                    <source_model>Webkul\Blog\Model\Config\Source\Effect</source_model>
+                </field>
+				<field id="blogapproval" translate="label comment" sortOrder="3" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Select blog approval method</label>
+                    <validate>required-entry</validate>
+                    <source_model>Webkul\Blog\Model\Config\Source\Effect</source_model>
+                </field>
+            </group>
+			 <group id="email_settings" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Blog Manager Email Settings</label>
+                <field id="status_waiting_notification" translate="label" type="select" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Blogger Request Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="status_permitted_notification" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Blogger Approved Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>                
+                <field id="comment_approval_notification" translate="label" type="select" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Comment Approval Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+				<field id="comment_status_waiting_notification" translate="label" type="select" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Comment Approval Request Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+				<field id="status_notpermitted_notification" translate="label" type="select" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Blogger Disapproved Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+				<field id="blog_notification" translate="label" type="select" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Blog Notification Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+				<field id="blog_approval_request" translate="label" type="select" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Blog Approval Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="comment_onblog_notification" translate="label" type="select" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Comment notification Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>				
+            </group>				
+		</section>
+	</system>
+</config>

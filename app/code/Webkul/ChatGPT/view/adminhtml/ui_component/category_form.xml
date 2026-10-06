@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!-- /**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_ChatGPT
+ * @author    Webkul Software Private Limited
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */ -->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="content">
+        <htmlContent name="html_content">
+            <argument name="block" xsi:type="object">Webkul\ChatGPT\Block\Adminhtml\Category\Form\ChatGPT</argument>            <!-- and this the path to our block file through which we will call our template file -->
+        </htmlContent>
+    </fieldset>
+    <fieldset name="search_engine_optimization">
+        <container name="wk_chatgpt_container">
+            <htmlContent name="html_content">
+                <block name="chatgpt_category_seo" class="Webkul\ChatGPT\Block\Adminhtml\Category\Form\Seo\ChatGPT"/>
+            </htmlContent>
+        </container>
+    </fieldset>
+</form>

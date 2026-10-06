@@ -1,0 +1,21 @@
+.grecaptcha-badge {z-index:9999 !important;}
+.affiliate-image {display: inline-block; margin-top: 1em; /*margin-left: 5em;*/}
+#super-product-table .affiliate-image {margin-top: 30px !important;}
+.affiliate-image img { height:100px;}
+.outfit_by div{display: inline-block;}
+.product-social-links .product-addto-links	{width: auto !important;}
+.product-social-links {display: flex;justify-content: left;align-items: center;float: none !important;}
+.product-addto-links.full-width-add-to, .mp_social_share_inline_under_cart, .action.mailto.friend{display: flex;justify-content: center;align-items: center;}
+.a2a_default_style .social-icons {margin: 0 3px !important; font-size: 16px !important;}
+.si-facebook:hover, .si-colored.si-facebook {background-color:#1877f2 !important;}
+@media(min-width: 768px){.theme-pearl.product-page-v1 .product-addto-links{margin-bottom:0 !important;}}
+.affiliate-image button{display: block !important;width: 374px !important;background: black !important;text-align: center;color: white !important;font-weight: bold !important;line-height: 25px !important;padding: 14px 17px !important;}
+.product-add-form{padding-top: 00 !important;margin-bottom: 30px;}
+.product-info-stock-sku{padding-top: 15px;}
+.affiliate-image a:hover{color: #fff !important;}
+.theme-pearl.store-view-default .affiliate-image button.action.primary:hover{color: #fff !important;}
+.theme-pearl.store-view-default .affiliate-image button.action.primary:hover span{color: #fff !important;}
+.affiliate-image .external-link{vertical-align: middle;margin-right: 1%;}
+/*.single-affi-pro{float: right;margin-bottom: 1em;}*/
+.theme-pearl.store-view-default .action.mailto.friend:before{font-size: 20px !important;width: 23px !important;}
+.theme-pearl.store-view-default .action.mailto.friend{margin-left: 0.7em !important;}

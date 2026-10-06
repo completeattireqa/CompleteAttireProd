@@ -1,0 +1,1 @@
+/opt/bitnami/apps/magento/htdocs/app/code/WeltPixel/CustomHeader/view/frontend/web/js/header_js.js

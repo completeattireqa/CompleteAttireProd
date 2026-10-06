@@ -1,0 +1,27 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpFedexShipping
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+    $viewBlock =  $block->getLayout()->createBlock(Webkul\MpFedexShipping\Block\MpFedexList::class);
+    $_helper = $viewBlock->helper(\Webkul\Marketplace\Helper\Data::class);
+    $isPartner = $_helper->isSeller();
+    $isSellerGroup = $_helper->isSellerGroupModuleInstalled();
+    $magentoCurrentUrl = $block->getCurrentUrl();
+?>
+<?php if ($isPartner) : ?>
+    <?php if (($isSellerGroup && $_helper->isAllowedAction('mpfedex/shipping/view') || !$isSellerGroup)) : ?>
+    <li id="wk-mp-menu-mpfedex" class="level-2 <?= /* @noEscape */ strpos($magentoCurrentUrl, 'mpfedex/shipping/view')? "current active":"";?>">
+        <a href="<?= /* @noEscape */ $block->getUrl('mpfedex/shipping/view', ['_secure' => 1]); ?>">
+            <?= /* @noEscape */ __('Fedex Shipping') ?>
+        </a>
+    </li>
+<?php endif; ?>
+<?php endif; ?>

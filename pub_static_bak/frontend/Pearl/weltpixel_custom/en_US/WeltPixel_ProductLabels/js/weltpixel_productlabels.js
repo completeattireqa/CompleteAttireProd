@@ -1,0 +1,1 @@
+/opt/bitnami/apps/magento/htdocs/app/code/WeltPixel/ProductLabels/view/frontend/web/js/weltpixel_pro

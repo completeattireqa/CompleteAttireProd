@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * Webkul Software
+ *
+ * @category    Webkul
+ * @package     Webkul_Blog
+ * @author      Webkul
+ * @copyright   Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license     https://store.webkul.com/license.html
+ */ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd" >
+	<menu>
+		<add id="Webkul_Blog::blog" title="Webkul Blog" module="Webkul_Blog" sortOrder="10" resource="Webkul_Blog::blog" />
+		<add id="Webkul_Blog::manageblog" title="Manage Blog" module="Webkul_Blog" sortOrder="20" parent="Webkul_Blog::blog" action="wkblog/blog/manageblog" resource="Webkul_Blog::manageblog"/>
+		<add id="Webkul_Blog::manageblogger" title="Manage Bloggers" module="Webkul_Blog" sortOrder="30" parent="Webkul_Blog::blog" action="wkblog/customer/managecustomer" resource="Webkul_Blog::manageblogger"/>
+		<add id="Webkul_Blog::addcategory" title="Manage Categories" module="Webkul_Blog" sortOrder="40" parent="Webkul_Blog::blog" action="wkblog/category/managecategories" resource="Webkul_Blog::managecategories"/>
+	</menu>
+</config>

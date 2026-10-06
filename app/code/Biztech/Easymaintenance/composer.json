@@ -1,0 +1,18 @@
+{
+	"name" : "biztech/easymaintenance",
+	"description" : "Easy Site Maintenance For Magento 2",
+	"require": {
+		"php": "~5.5.0|~5.6.0|~7.0.0",
+		"magento/magento-composer-installer": "*"
+	},
+	"type": "magento2-module",
+	"version": "100.0.5",
+	"license": [
+		"OSL-3.0",
+		"AFL-3.0"
+	],
+	"autoload" : {
+		"psr-4" : { "Biztech\\Easymaintenance\\" : "" },
+		"files" : [ "registration.php" ]
+	}
+}

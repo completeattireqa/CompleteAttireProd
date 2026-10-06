@@ -1,0 +1,141 @@
+<!-- 
+/**
+ * Webkul Software
+ *
+ * @category    Webkul
+ * @package     Webkul_Blog
+ * @author      Webkul
+ * @copyright   Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license     https://store.webkul.com/license.html
+ */ -->
+ <?php
+ $comment = $block->getComments();
+ $customer = $block->getCustomerData();
+ $customerId = $customer->getId();
+ $commentSize = $block->getCommentSize();
+ $collection = $block->getTitle();
+ $isLoggedIn = $this->helper('Webkul\Blog\Helper\Data')->getCustomerLoginInfo();
+?>
+<?php foreach ($collection as $blog) : ?>
+    <?php $name=$blog->getCustomerName(); ?>
+<?php endforeach; ?>
+<div class="wk-main-title-container">
+    <h1 class='WK_textcolor wk-heading' style="width: 100%; text-align:center;"><?php  echo $block->escapeHtml($blog->getSubject()); ?></h1>
+    <div class = 'container'>
+        <p class = 'post-meta tags'>
+            <span class='date'>
+                <?php echo $block->escapeHtml($blog->getCreatedAt());  ?>
+            </span>
+            <a href='<?php  echo $block->escapeHtml($this->getUrl()); ?>wkblog/blog/user/userid/<?php  echo $block->escapeHtml($blog->getUserId());?>' role='button' class='btn'>
+                <span class='author'>
+                    <?php  echo $block->escapeHtml($blog->getCustomerName());?>
+                </span>
+            </a>
+            <?php if ($blog->getCategory() != "") : ?>
+                <?php if ($blog->getStatus() != 0) : ?>
+                    <a href='<?php echo $block->escapeHtml($this->getUrl()); ?>wkblog/category/category/categoryid/<?php  echo $block->escapeHtml($blog->getCategoryId());?>' role='button' class='btn'><span class='cats'><?php echo $block->escapeHtml($blog->getCategory())?></span></a>
+                <?php endif; ?>
+            <?php endif; ?>
+        </p>                
+        <?php echo "<div class='WK_tbodyingedit_content'>".$blog->getContent()."</div>"; ?>
+        <p class='tags'>
+            <span class='tag'>
+                <?php $tags = $blog->getTag();
+                $tagsArray = explode(',', $tags); ?>
+                <?php foreach ($tagsArray as $tag) : ?>
+                    <?php if ($tag != "") : ?>
+                        <a href='<?php echo $block->escapeHtml($this->getUrl()); ?>wkblog/blog/tag/tag/<?php echo $block->escapeHtml($tag);?>' role='button' class='btn'><span class='tag'><?php echo $block->escapeHtml($tag);?> ,</span></a>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </span>
+        </p>
+        <hr>
+    </div>
+    <div class="WK_tbodyingedit_content wk-comment-box" >
+        <div class='wk_commentlable'>
+            <h3><?php echo $block->escapeHtml(__("COMMENTS"));?><span> (<?php echo $block->escapeHtml($commentSize); ?>)</span></h3>
+            <div class="WK_tdpadfirstedit"> 
+                <a role="button" href="#" target="_blank" onclick="return false;">
+                </a>
+            </div>
+        </div>
+    <?php foreach ($comment as $comments) : ?>
+        <div class="WK_tbodyingedit_content wk-comment-style" > 
+            <div class="wk-commentbody">
+                <div class='wk-fb-image'>   
+                </div>  
+            </div>
+            <span class="wk_textarea">
+                <span class="wk_textarea">
+                    <?php if ($comments->getCustomerWebsite() != "") :?>
+                        <a href="<?php echo $block->escapeHtml($comments->getCustomerWebsite());?>" rel="nofollow" ><?php  echo $block->escapeHtml($comments->getCustomerName());" : " ?></a>
+                    <?php else : ?>
+                        <span style='color:#006bb4;' rel="nofollow" ><?php  echo $block->escapeHtml($comments->getCustomerName());" : " ?></span>
+                    <?php endif;?>              
+                </span>
+                <?php  echo $block->escapeHtml($comments->getComment()); ?>
+            </span>
+        </div>
+    <?php endforeach; ?>
+    <div class="greet welcome" data-bind="scope: 'customer'">
+    <form action="<?php echo $block->escapeHtml($this->getUrl('wkblog/comment/postcomment/')) ?>" method="post" id="commentSave" enctype="multipart/form-data">
+        <?php foreach ($collection as $blog) : ?>
+         
+                <input type="hidden" name="url" data-bind="value:customer().fullname" />
+                <input type="hidden" name="customer_email" data-bind="value:customer().email" id="customer_email" />
+                <input type="hidden" name="post_id" value="<?php  echo $block->escapeHtml($blog->getId()); ?>" />
+                <input type="hidden" name="title" value="<?php  echo $block->escapeHtml($blog->getSubject()); ?>" />
+                <div class="wk-lowercommentbox">
+                    <input class="wk_textbox wk-textbox-comment comment" required="1" type="text" placeholder="<?php echo __("Please enter your full name");?>" name="customer_name" id="fullName" data-bind="value:customer().fullname" />
+                    <span class="error" id="fullnameErr"></span>
+                    <input class="wk_textbox wk-textbox-comment comment" type="url" id="website" placeholder="<?php echo __("Please enter website");?>" name="customer_website"/>
+                    <span class="error" id="websiteErr"></span>
+                    <textarea class="wk_textarea comment" name="comment" id="comment" placeholder="<?php 
+                    echo __("Add a comment...");?>" required="1" title="<?php echo __("Add a comment...");?>"></textarea>
+                    <span class="error" id="commentErr"></span>
+                    <div class="wk-comment-save-button">
+                        <!-- ko if: customer().fullname  -->
+                            <button class="wk_commentbutton" style="background-color: #000000;" id="commentSubmit" type="submit"><?php echo $block->escapeHtml(__("Comment"));?> </button>
+                        <!-- /ko -->
+                        <!-- ko ifnot: customer().fullname  -->
+                            <div class="wk_commentbutton" style="background-color: #000000;" id="click-me"> <?php echo $block->escapeHtml(__("Comment"));?> </div>
+                        <!-- /ko -->
+                    </div>
+                    <br>
+                </div>
+           
+        <?php endforeach; ?>
+        </form>
+    </div>
+    <div class="order-products-toolbar toolbar bottom">
+        <div class ='ek-pager-box'>
+            <?php if ($block->getPagerHtml()) : ?>
+                <?php /* @escapeNotVerified */ echo $block->getPagerHtml(); ?>
+            <?php endif; ?>
+        </div>
+        <div class="buttons-set" style="clear:left">
+            <a class="left" onclick="javascript: window.history.back();" href="javascript:;">« Back</a>
+        </div> 
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "customer": {
+                        "component": "Magento_Customer/js/view/customer"
+                        
+                    }
+                }
+            },
+            "popup": {}
+        }
+    }
+</script>
+
+
+<div id="popup-modal" style="display:none;">
+    <input type="text" id="email" placeholder="Please enter your email id">
+    <span id="emailErr"></span>
+</div>

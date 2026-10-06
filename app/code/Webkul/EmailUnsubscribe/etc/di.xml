@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_EmailUnsubscribe
+ * @author    Webkul
+ * @copyright Copyright (c)   Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */ -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Webkul\EmailUnsubscribe\Api\Data\UnsubscribeSellerInterface" type="Webkul\EmailUnsubscribe\Model\UnsubscribeSeller"/>
+    <preference for="Webkul\EmailUnsubscribe\Api\Data\ReasonInterface" type="Webkul\EmailUnsubscribe\Model\Reason"/>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="unsubscribed_sellers_list_data_source" xsi:type="string">Webkul\EmailUnsubscribe\Model\ResourceModel\UnsubscribeSeller\Grid\Collection</item>
+                <item name="unsubscription_reasons_list_data_source" xsi:type="string">Webkul\EmailUnsubscribe\Model\ResourceModel\Reason\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+    <type name="Webkul\EmailUnsubscribe\Model\ResourceModel\UnsubscribeSeller\Grid\Collection">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">unsubscribed_sellers</argument>
+			<argument name="eventPrefix" xsi:type="string">unsubscribed_seller_grid_collection</argument>
+			<argument name="eventObject" xsi:type="string">unsubscribers_grid_collection</argument>
+			<argument name="resourceModel" xsi:type="string">Webkul\EmailUnsubscribe\Model\ResourceModel\UnsubscribeSeller</argument>
+		</arguments>
+	</type>
+    <type name="Webkul\EmailUnsubscribe\Model\ResourceModel\Reason\Grid\Collection">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">unsubscription_reasons</argument>
+			<argument name="eventPrefix" xsi:type="string">unsubscription_reasons_grid_collection</argument>
+			<argument name="eventObject" xsi:type="string">reasons_grid_collection</argument>
+			<argument name="resourceModel" xsi:type="string">Webkul\EmailUnsubscribe\Model\ResourceModel\Reason</argument>
+		</arguments>
+	</type>
+	<type name="\Webkul\Marketplace\Helper\Email">
+        <plugin name="Webkul_EmailUnsubscribe::emailHelper"
+			type="Webkul\EmailUnsubscribe\Plugin\Marketplace\Helper\Email"
+			sortOrder="10" />
+    </type>
+	<preference for="Magento\Customer\Model\EmailNotification" type="Webkul\EmailUnsubscribe\Rewrite\Model\Customer\EmailNotification" />
+</config>

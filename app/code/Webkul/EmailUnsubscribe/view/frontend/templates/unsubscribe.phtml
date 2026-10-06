@@ -1,0 +1,59 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_EmailUnsubscribe
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+$sellerId = $block->getRequest()->getParam('seller_id');
+$isUnsubscribed = $block->isUnsubscribed($sellerId);
+$email = $block->getSellerEmail($sellerId);
+?>
+<div class="wk-mp-design">
+    <?php if (!$isUnsubscribed):
+        $reasons = $block->getReasonCollection();
+        ?>
+        <h1>Unsubscribe</h1>
+        <div class="wk-label">
+            <span><?= $block->escapeHtml(__("If you no longer wish for ".$email." to receive any 
+            marketing email messages from Complete Attire. Please click Unsubscribe.")); ?></span>
+        </div>
+        <form method="POST" action="<?= $block->escapeUrl($block->getSaveUrl()); ?>" data-mage-init='{"validation":{}}'>
+            <input type="hidden" name="seller_id" value="<?= $block->escapeHtml($sellerId); ?>">
+            <input type="hidden" name="status" value="1">
+            <input type="hidden" name="seller_email" value="<?= $block->escapeHtml($email); ?>">
+            <div class="field">
+                <div class="wk-heading">
+                    <h2><?= $block->escapeHtml(__('REASON FOR UNSUBSCRIBE ')) ?></h2>
+                </div>
+                <?php foreach ($reasons as $reason): ?>
+                    <div class="control reason">
+                        <input type="checkbox" name="reason[]" value="<?= $block->escapeHtml($reason->getReason()) ?>">
+                        <?= $block->escapeHtml($reason->getReason()); ?>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <div class="control btn-grp">
+                <button class="button wk-mp-btn" title="Save" type="submit" id="save-btn">
+                    <span><span><?= $block->escapeHtml(__('Unsubscribe')); ?></span></span>
+                </button>
+            </div>
+        </form>
+    <?php else: ?>
+        <h1>You're Unsubscribed.</h1>
+        <div class="wk-label">
+            <h2>
+                <?= $block->escapeHtml(
+                    __("You have been successfully unsubscribed from marketing emails.")
+                ); ?>
+            </h2>
+        </div>
+        <span><?= $block->escapeHtml(__("We're sorry to see you go, and apologize if we've overwhelmed
+        your inbox. Plaese note that you will still receive transactional and support emails regarding 
+        your Complete Attire account.")) ?></span>
+    <?php endif; ?>
+</div>

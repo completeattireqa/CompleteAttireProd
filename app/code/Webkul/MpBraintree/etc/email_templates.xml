@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpBraintree
+ * @author    Webkul
+ * @copyright Copyright (c) 2010-2017 Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="marketplace_mpbraintree_email_seller_bank_transfer_template" label="Braintree bank transfer mail to seller" file="bank_transfer.html" type="html" module="Webkul_MpBraintree" area="frontend"/>
+    <template id="marketplace_mpbraintree_email_cron_template" label="braintree cron execute mail" file="cron.html" type="html" module="Webkul_MpBraintree" area="frontend"/>
+</config>

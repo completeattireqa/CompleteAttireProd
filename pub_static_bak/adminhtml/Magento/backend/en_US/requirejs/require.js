@@ -1,0 +1,1 @@
+/opt/bitnami/apps/magento/htdocs/lib/web/requirejs/require.js

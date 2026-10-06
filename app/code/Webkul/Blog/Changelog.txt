@@ -1,0 +1,42 @@
+Legend
+
++ Features
+- Bugs
+
+-------------------------------- Version 2.0.2 --------------------------------------
+	 + Varnish supporting.
+
+-------------------------------- Version 2.0.1 --------------------------------------
+
+	+ composer.json issue fixed.
+	+ Email issue fixed.
+	+ Compatible with magento version 2.2.x
+	
+-------------------------------- Version 2.0.0 --------------------------------------
+	
+	+ By using this module customers can write/update his posts on blog.
+	+ Proper blog management like add/edit/delete from customer's account.
+	+ Each customer can see blog by visiting blog page.
+	+ Any logged in user can comment on any post of customer.
+	+ Admin can manage all blogs and it’s comments.
+	+ Admin can delete any blog.
+	+ Admin can  view all blogs at once as well as blogs by particular users.
+	+ Admin can perform approved/unapproved/delete action for particular blog's comment.
+	+ Admin also provide permission to customers for adding posts on blog.
+	+ Categories can be created by admin only.
+	+ Admin can view, enable, disable, and delete the categories.	
+	+ There are two modes for posting comments i.e. Auto and Manual.
+	+ In auto mode the comment is displayed as soon as it is posted.
+	+ In manual mode the comment is displayed only after getting approved by admin.
+	+ Admin receives Email when a comment is added in manual mode.
+	+ User receives Email at comment approval.
+	+ When a new comment is made, an e-mail is sent to blogger who wrote that blog. 
+	+ User can subscribe for blogs at the time of registration or after registration.
+	+ There are two modes for subscribing blogs i.e. Auto and Manual.
+	+ In auto mode the customer is approved as soon as he subscribes for blogs.
+	+ In manual mode the customer needs to get approved by admin.
+	+ In manual mode, an e-mail is sent to admin from customer who request for blog.
+	+ Admin receives Email when a customer subscribes for blogs in manual mode.
+	+ User receives an Email when he is permitted for adding posts on blog in manual mode.
+	+ Compatible with Magento version 2.1.* .
+

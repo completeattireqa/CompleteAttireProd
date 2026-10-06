@@ -1,0 +1,62 @@
+<?php
+/**
+* Webkul Software.
+*
+* @category Webkul
+* @package Webkul_MpBraintree
+* @author Webkul
+* @copyright Copyright (c) 2010-2017 Webkul
+* Software Private Limited (https://webkul.com)
+* @license https://store.webkul.com/license.html
+*/
+$helper = $this->helper('Webkul\Marketplace\Helper\Data');
+$isPartner= $helper->isSeller();
+$isSellerGroup = $helper->isSellerGroupModuleInstalled();
+$isBraintreeEnable = $block->getIsBraintreeEnable();
+$magentoCurrentUrl = $block->getCurrentUrl();
+if ($isPartner && $isBraintreeEnable) {
+?>
+<?php
+    if(($isSellerGroup && $helper->isAllowedAction('mpbraintree/braintreeaccount/index')) || !$isSellerGroup) {
+?>
+     <li
+        class="nav item <?php
+            /* @escapeNotVerified */
+            echo strpos(
+                $magentoCurrentUrl,
+                '/braintreeaccount/index'
+            ) !== false ? "current":"";
+        ?>"
+     >
+        <?php
+        if (
+            strpos($magentoCurrentUrl, 'mpbraintree/braintreeaccount/index') !== false
+        ) {
+        ?>
+            <strong>
+            <?php
+                /* @escapeNotVerified */
+                echo __('Braintree Vendor Details')
+            ?>
+            </strong>
+        <?php
+        } else {
+        ?>
+            <a href="<?php
+                    /* @escapeNotVerified */
+                    echo $block->getUrl(
+                        'mpbraintree/braintreeaccount/index',
+                        ['_secure' => $this->getRequest()->isSecure()]
+                    );
+                ?>"
+            >
+                <?php  /* @escapeNotVerified */ echo __('Braintree Vendor Details') ?>
+            </a>
+        <?php
+        }
+        ?>
+    </li>
+
+<?php
+    }
+}

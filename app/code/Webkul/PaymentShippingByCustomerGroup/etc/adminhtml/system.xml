@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_PaymentShippingByCustomerGroup
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="webkul" translate="label" sortOrder="7">
+            <label>WEBKUL</label>
+        </tab>
+        <section id="webkul_paymentshippingbycustomergroup" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" >
+            <label>Payment and Shipping Methods By Customer Group</label>
+            <tab>webkul</tab>
+            <resource>Webkul_PaymentShippingByCustomerGroup::config_paymentshippingbycustomergroup</resource>
+            <group id="webkul_paymentshippingbycustomergroup_settings" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" >
+                <label>Payment and Shipping Methods By Customer Group settings</label>
+                <field id="enable_disable_paymentshippingbycustomergroup" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" >
+                    <label>Enable Webkul Payment and Shipping Methods By Customer Group</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="webkul_paymentshippingbycustomergroup_shippings" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" >
+                <label>Shipping Methods settings</label>
+                <field id="allowspecific" translate="label" type="allowspecific" sortOrder="7" showInDefault="1" showInWebsite="1">
+                    <label>Allowed shipping methods</label>
+                    <source_model>Webkul\PaymentShippingByCustomerGroup\Model\Config\Source\AllSpecificShipping</source_model>
+                </field>
+                <field id="specificcountry" translate="label" type="multiselect" sortOrder="8" showInDefault="1" showInWebsite="1">
+                    <label>Select shipping methods</label>
+                    <source_model>Webkul\PaymentShippingByCustomerGroup\Model\Config\Source\ActiveShippings</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+            </group>
+            <group id="webkul_paymentshippingbycustomergroup_payments" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" >
+                <label>Payment Methods settings</label>
+                <field id="allowspecific" translate="label" type="allowspecific" sortOrder="9" showInDefault="1" showInWebsite="1">
+                    <label>Allowed payment methods</label>
+                    <source_model>Webkul\PaymentShippingByCustomerGroup\Model\Config\Source\AllSpecificPayment</source_model>
+                </field>
+                <field id="specificcountry" translate="label" type="multiselect" sortOrder="10" showInDefault="1" showInWebsite="1">
+                    <label>Select payment methods</label>
+                    <source_model>Webkul\PaymentShippingByCustomerGroup\Model\Config\Source\ActivePayments</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

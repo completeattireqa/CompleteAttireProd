@@ -1,0 +1,33 @@
+<!-- 
+/**
+ * Webkul Software
+ *
+ * @category    Webkul
+ * @package     Webkul_Blog
+ * @author      Webkul
+ * @copyright   Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license     https://store.webkul.com/license.html
+ */ -->
+
+<div class="field required" id="signup">
+	<label for="interest" class="label"><?php echo $block->escapeHtml(__('Subscribe For Blogs ?')) ?></label>
+    <div class='control'>   
+        <input type="radio" class="interest" id='interest1' name="interest" title="<?php echo $block->escapeHtml(__('signup for blogs')) ?>" value="yes" > <?php echo $block->escapeHtml(__('Yes')) ?>&nbsp;&nbsp;  
+        <input type="radio" class="interest"  id='interest' name="interest" title="<?php echo $block->escapeHtml(__('do not signup for blogs')) ?>" value="no" checked > <?php echo $block->escapeHtml(__('No')) ?>
+    </div>  
+</div>
+
+
+<?php
+$optionElements = [
+'signUp'    => '#signup'
+];
+$serializedData = $this->helper('Magento\Framework\Json\Helper\Data')->jsonEncode($optionElements);
+?>
+<script type="text/x-magento-init">
+{
+"*":{
+        "blogSignUp":<?php /* @noEscape */ echo $serializedData; ?>
+    }
+}
+</script>

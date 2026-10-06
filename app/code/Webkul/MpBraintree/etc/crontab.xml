@@ -1,0 +1,18 @@
+<!-- 
+/**
+* Webkul Software
+*
+* @category  Webkul
+* @package   Webkul_Mpbraintree
+* @author    Webkul
+* @copyright Copyright (c) 2010-2017 Webkul Software Private Limited (https://webkul.com)
+* @license   https://store.webkul.com/license.html
+*/
+-->
+<config>
+	<group id="default">
+        <job name="mpbraintree_seller_transaction_release" instance="\Webkul\MpBraintree\Model\Cron" method="releaseEscrowAmount">
+            <schedule>0 1 * * *</schedule>
+        </job>
+    </group>
+</config>

@@ -1,0 +1,110 @@
+<?php
+/**
+ * Copyright 2016 © webmull. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * CustomerSubscription Module
+ *
+ * @author     webmull Team <info@webmull.com>
+ */
+
+namespace Webmull\CustomerSubscription\Setup;
+
+use Magento\Framework\Setup\InstallSchemaInterface;
+use Magento\Framework\Setup\ModuleContextInterface;
+use Magento\Framework\Setup\SchemaSetupInterface;
+
+/**
+ * @codeCoverageIgnore
+ */
+class InstallSchema implements InstallSchemaInterface
+{
+    public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
+    { 
+        $installer = $setup;
+
+        $installer->startSetup();
+
+		$table = $installer->getConnection()->newTable(
+		$installer->getTable('subscriptin_plan')
+		)->addColumn(
+			'plan_id',
+			\Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
+			null,
+			['identity' => true, 'nullable' => false, 'primary' => true],
+			'Plan ID'
+		)->addColumn(
+			'title',
+			\Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+			255,
+			['nullable' => false],
+			'Plan Title'
+		)->addColumn(
+			'image',
+			\Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+			255,
+			['nullable' => false],
+			'Image'
+		)->addColumn(
+			'content',
+			\Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+			'2M',
+			[],
+			'plan Content'
+		)->addColumn(
+			'creation_time',
+			\Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
+			null,
+			[],
+			'plan Creation Time'
+		)->addColumn(
+			'update_time',
+			\Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
+			null,
+			[],
+			'plan Modification Time'
+		)->addColumn(
+			'is_active',
+			\Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
+			null,
+			['nullable' => false, 'default' => '1'],
+			'Is plan Active'
+		)->addIndex(
+			$installer->getIdxName('sizechart',['title']),
+			['title']
+		)->setComment(
+			'plan Table'
+		);
+		$installer->getConnection()->createTable($table);
+
+		$sizechartProducttable = $installer->getConnection()->newTable(
+		$installer->getTable('customer_subscription')
+		)->addColumn(
+			'subscription_id',
+			\Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
+			null,
+			['identity' => true, 'nullable' => false, 'primary' => true],
+			'subscription ID'
+		)->addColumn(
+			'plan_id',
+			\Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
+			null,
+			['nullable' => false],
+			'Plan ID'
+		)->addColumn(
+			'customer_id',
+			\Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
+			null,
+			['nullable' => false],
+			'Customer ID'
+		)->setComment(
+			'Subscription Customer Table'
+		);
+		$installer->getConnection()->createTable($sizechartProducttable);
+		
+		$installer->endSetup();
+		
+	}
+}

@@ -1,0 +1,1 @@
+/opt/bitnami/apps/magento/htdocs/app/code/WeltPixel/CategoryPage/view/frontend/web/js/productItemAct

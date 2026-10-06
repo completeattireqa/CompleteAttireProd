@@ -1,0 +1,99 @@
+"Import AI Content","Import AI Content"
+Copywriting,Copywriting
+Marketing,Marketing
+SEO,SEO
+"Social Media","Social Media"
+Productivity,Productivity
+Professionals,Professionals
+"Read error!","Read error!"
+"Unable to Import AI Content for (%1) as the module is disabled for the store view 
+                                [%2] associated with this page.","Unable to Import AI Content for (%1) as the module is disabled for the store view 
+                                [%2] associated with this page."
+"Something went wrong in chatGPT","Something went wrong in chatGPT"
+"An error occurred while importing AI Content. 
+            Please check your API keys and configurations, then try again.","An error occurred while importing AI Content. 
+            Please check your API keys and configurations, then try again."
+"error' 'message","error' 'message"
+"Run Profile","Run Profile"
+"Something went wrong in chatGPT.","Something went wrong in chatGPT."
+"Row data no longer exist.","Row data no longer exist."
+"Edit ChatGPT Prompt Template","Edit ChatGPT Prompt Template"
+"Add ChatGPT Prompt Template","Add ChatGPT Prompt Template"
+"ChatGPT Prompt Templates","ChatGPT Prompt Templates"
+"A total of %1 record(s) have been deleted.","A total of %1 record(s) have been deleted."
+"The row data no longer exists.","The row data no longer exists."
+"You have updated the Prompt Template successfully.","You have updated the Prompt Template successfully."
+"Prompt Template saved successfully.","Prompt Template saved successfully."
+GPT-3.5,GPT-3.5
+GPT-4,GPT-4
+"Select ChatGPT Prompt Template","Select ChatGPT Prompt Template"
+"Enable Module","Enable Module"
+"Api Secret","Api Secret"
+"ChatGPT Model","ChatGPT Model"
+"Something went wrong while saving this configuration: %1","Something went wrong while saving this configuration: %1"
+Edit,Edit
+"Page Content","Page Content"
+"SEO Content","SEO Content"
+label,label
+"Fill description with Chat GPT","Fill description with Chat GPT"
+"Starting Execution","Starting Execution"
+"Please don't close or refresh the window while writing content for %1(s).","Please don't close or refresh the window while writing content for %1(s)."
+"Total ","Total "
+" %1(s) to complete"," %1(s) to complete"
+"Writing Content ","Writing Content "
+"Go Back","Go Back"
+"No product to import.","No product to import."
+"Finished Execution.","Finished Execution."
+"Choose a category","Choose a category"
+Sub-category,Sub-category
+"Select a sub-category","Select a sub-category"
+Templates,Templates
+"Select a template","Select a template"
+Languages,Languages
+Countries,Countries
+"Voice Tones","Voice Tones"
+"Writing Styles","Writing Styles"
+"Prompt Template","Prompt Template"
+"Save Template","Save Template"
+"Go back","Go back"
+Author,Author
+Webkul,Webkul
+Version,Version
+"User Guide","User Guide"
+"Click Here","Click Here"
+"Store Extension","Store Extension"
+Ticket/Customisations,Ticket/Customisations
+Services,Services
+"Insert Widget...","Insert Widget..."
+"Insert Image...","Insert Image..."
+"Insert Variable...","Insert Variable..."
+"Fill description with Chat GPT...","Fill description with Chat GPT..."
+"Content Importing Failed.","Content Importing Failed."
+"Successfully imported content for %1 %2(s).","Successfully imported content for %1 %2(s)."
+Completed,Completed
+ChatGPT,ChatGPT
+Menu,Menu
+"Prompt Templates","Prompt Templates"
+"Chat GPT","Chat GPT"
+"General Settings","General Settings"
+"Content Based On selected Attributes","Content Based On selected Attributes"
+"Import SEO Content","Import SEO Content"
+"SEO Attributes","SEO Attributes"
+"Enable Prompt Templates","Enable Prompt Templates"
+"Product Description Prompt Template","Product Description Prompt Template"
+"Category Description Prompt Template","Category Description Prompt Template"
+"CMS Page Prompt Template","CMS Page Prompt Template"
+"Webkul Chat GPT Product Information","Webkul Chat GPT Product Information"
+"Are you sure want to import AI Content For selected items?","Are you sure want to import AI Content For selected items?"
+"Add New Prompt Template","Add New Prompt Template"
+"Are you sure you want to delete selected items?","Are you sure you want to delete selected items?"
+"Delete items","Delete items"
+Delete,Delete
+ID,ID
+"Template Title","Template Title"
+Category,Category
+"Sub Category","Sub Category"
+Template,Template
+Prompt,Prompt
+"Created At","Created At"
+"Updated At","Updated At"

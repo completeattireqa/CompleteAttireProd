@@ -1,0 +1,1 @@
+/opt/bitnami/apps/magento/htdocs/app/code/WeltPixel/SearchAutoComplete/view/frontend/web/js/searchau

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_ChatGPT
+ * @author    Webkul Software Private Limited
+ * @copyright   Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Webkul_ChatGPT::chatgpt" title="ChatGPT" translate="title" module="Webkul_ChatGPT" sortOrder="10" dependsOnModule="Webkul_ChatGPT" resource="Webkul_ChatGPT::chatgpt"/>
+        <add id="Webkul_ChatGPT::menu" title="Menu" translate="title" module="Webkul_ChatGPT" sortOrder="20" parent="Webkul_ChatGPT::chatgpt" resource="Webkul_ChatGPT::menu"/>
+        <add id="Webkul_ChatGPT::prompt_templates" title="Prompt Templates" translate="title" module="Webkul_ChatGPT" sortOrder="15" parent="Webkul_ChatGPT::menu" action="chatgpt/prompttemplates/" resource="Webkul_ChatGPT::prompt_templates"/>
+        </menu>
+</config>

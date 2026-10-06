@@ -1,0 +1,59 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_PaymentShippingByCustomerGroup
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+namespace Webkul\PaymentShippingByCustomerGroup\Block\Widget\Grid\Column\Renderer;
+
+use Webkul\PaymentShippingByCustomerGroup\Model\Config\Source\ActivePayments;
+
+class PaymentLabel extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\AbstractRenderer
+{
+    /**
+     * @param \Magento\Backend\Block\Context $context
+     * @param array $data
+     */
+    public function __construct(
+        \Magento\Backend\Block\Context $context,
+        ActivePayments $activePayments,
+        array $data = []
+    ) {
+        $this->activePayments = $activePayments;
+        parent::__construct($context, $data);
+    }
+
+    /**
+     * Renders grid column
+     *
+     * @param   \Magento\Framework\DataObject $row
+     * @return  string
+     */
+    public function render(\Magento\Framework\DataObject $row)
+    {
+        $rows = $row->getData();
+        if (isset($rows['payment_methods'])) {
+            $options = $this->activePayments->toOptionArray();
+            $payments = explode(",", $rows['payment_methods']);
+            unset($rows);
+            foreach ($options as $option) {
+                $optionArray[] = $option['value'];
+            }
+            foreach ($payments as $key => $payment) {
+                if (!in_array($payment, $optionArray)) {
+                    unset($payments[$key]);
+                } else {
+                    $rows[] = $options[$payment]['label'];
+                }
+            }
+            $rows =  implode(",", $rows);
+            $row->setPaymentMethods($rows);
+        }
+        return $this->_getValue($row);
+    }
+}

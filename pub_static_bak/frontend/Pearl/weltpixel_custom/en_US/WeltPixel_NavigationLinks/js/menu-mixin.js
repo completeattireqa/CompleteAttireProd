@@ -1,0 +1,1 @@
+/opt/bitnami/apps/magento/htdocs/app/code/WeltPixel/NavigationLinks/view/frontend/web/js/menu-mixin.

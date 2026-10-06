@@ -1,0 +1,1 @@
+/opt/bitnami/apps/magento/htdocs/vendor/magento/module-product-video/view/frontend/web/js/load-playe

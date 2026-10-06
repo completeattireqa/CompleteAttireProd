@@ -1,0 +1,222 @@
+<?php
+$categories = $block->getCategories();
+$subCategories = $block->getSubCategories();
+$templateData = $block->getPromptTemplateData();
+?>
+<div class="header-padding"></div>
+<?php $ajaxLoader = $block->getViewFileUrl('Webkul_ChatGPT::images/ajax-loader.gif') ?>
+<img class="hidden" id="loader-image" src="<?= /* @noEscape */ $ajaxLoader ?>" />
+<form method="POST" data-mage-init='{"validation":{}}' id="save-chatgpt-prompt-template" 
+    action="<?= /* @noEscape */ $block->getUrl('chatgpt/prompttemplates/save') ?>" 
+    data-hasrequired="* Required Fields">
+    <input type="hidden" name="form_key" value="<?= /* @noEscape */ $block->getFormKey() ?>">
+    <fieldset class="fieldset">
+        <div class="wk-row" id="template-title">
+            <label for="select-template">Template Title: </label>&nbsp&nbsp
+            <input name="template_title" value="<?= $block->escapeHtml(isset($templateData['template_title']) ?
+            $templateData['template_title'] : '') ?>" id="template-title" title="Prompt Template Title" 
+            type="text" class="input-text admin__control-text required-entry _required">
+        </div>
+        <div class="wk-row" id="section-templates">
+            <div class="field required">
+                <label for="select-category">Category:</label>
+                <select class="admin__control-select" id="select-category" required="true" 
+                    data-validate='{"required":true}'>
+                    <option value=""><?= $block->escapeHtml(__("Choose a category")) ?></option>
+                    <?php
+                    foreach ($categories as $key => $value) { ?>
+                        <option value="<?= /*@noEscape*/ $key ?>"
+                            <?php if (isset($templateData['category'])
+                            && $templateData['category']
+                            && $value == $templateData['category']) { ?>
+                                           <?= /*@noEscape */ 'selected' ?><?php $catVal = $key;
+                            } else { ?><?= /*@noEscape */ ''?><?php } ?>><?= /*@noEscape*/ $value ?>
+                        </option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="field required">
+                <label for="select-subcategory"><?= $block->escapeHtml(__("Sub-category")) ?>:</label>
+                <select class="admin__control-select" id="select-subcategory" required="true" 
+                data-validate='{"required":true}' <?= isset($templateData['sub_category']) ? '' : 'disabled' ?>>
+                    <option value=""><?= $block->escapeHtml(__("Select a sub-category"))?></option>
+                    <?php if (isset($templateData['sub_category']) && $templateData['sub_category'] && isset($catVal)) { ?>
+                        <?php
+                        foreach ($subCategories[$catVal] as $key => $value) {
+                            if (is_array($value)) {
+                                foreach ($value as $k => $v) { ?>
+                                <option value="<?= /*@noEscape*/ $k ?>"
+                                    <?php if (isset($templateData['sub_category'])
+                                    && $templateData['sub_category']
+                                    && $v == $templateData['sub_category']) { ?>
+                                                   <?= /*@noEscape */'selected' ?><?php $subCatVal = $k;
+                                    } else { ?><?= '' ?><?php }?>><?= /*@noEscape*/ $v ?></option>
+                                <?php } ?>
+                            <?php }
+                        }
+                    }?>
+                </select>
+            </div>
+            <div class="field required">
+                <label for="select-template"><?= $block->escapeHtml(__("Templates"))?>:</label>
+                <select class="admin__control-select" id="select-template" required="true" 
+                data-validate='{"required":true}' <?= isset($templateData['templates']) ? '' : 'disabled' ?>>
+                    <option value=""><?= $block->escapeHtml(__("Select a template"))?></option>
+                </select>
+            </div>
+        </div>
+        <div class="wk-row" id="section-description">
+            Description: Generate meaningful product descriptions for your e-commerce website
+        </div>
+        
+        <div class="wk-row" id="section-global">
+            <div data-id="select-language" class="hidden field required">
+                <label for="select-language"><?= $block->escapeHtml(__("Languages"))?>:</label>
+                <select class="admin__control-select" id="select-language" data-validate='{"required":true}' 
+                data-name="language">
+                    <option value="english">English</option>
+                    <option value="arabic">Arabic</option>
+                    <option value="bulgarian">Bulgarian</option>
+                    <option value="burmese">Burmese</option>
+                    <option value="czech">Czech</option>
+                    <option value="danish">Danish</option>
+                    <option value="dutch">Dutch</option>
+                    <option value="french">French</option>
+                    <option value="german">German</option>
+                    <option value="greek">Greek</option>
+                    <option value="hindi">Hindi</option>
+                    <option value="hungarian">Hungarian</option>
+                    <option value="indonesian">Indonesian</option>
+                    <option value="italian">Italian</option>
+                    <option value="japanese">Japanese</option>
+                    <option value="javanese">Javanese</option>
+                    <option value="korean">Korean</option>
+                    <option value="mandarin chinese">Mandarin Chinese</option>
+                    <option value="polish">Polish</option>
+                    <option value="portuguese">Portuguese</option>
+                    <option value="romanian">Romanian</option>
+                    <option value="russian">Russian</option>
+                    <option value="spanish">Spanish</option>
+                    <option value="swedish">Swedish</option>
+                    <option value="thai">Thai</option>
+                    <option value="turkish">Turkish</option>
+                    <option value="ukranian">Ukranian</option>
+                    <option value="urdu">Urdu</option>
+                    <option value="vietnamese">Vietnamese</option>
+                    <option value="wu chinese">Wu Chinese</option>
+                    <option value="yue chinese">Yue Chinese</option>
+                </select>
+            </div>
+            <div data-id="select-country" class="hidden field required">
+                <label for="select-country"><?= $block->escapeHtml(__("Countries"))?>:</label>
+                <select class="admin__control-select" id="select-country" data-validate='{"required":true}' 
+                data-name="country">
+                    <option value="gl">All Countries</option>
+                    <option value="au">Australia</option>
+                    <option value="ca">Canada</option>
+                    <option value="in">India</option>
+                    <option value="nz">New Zealand</option>
+                    <option value="za">South Africa</option>
+                    <option value="uk">United Kingdom</option>
+                    <option value="us">United States</option>
+                </select>
+            </div>
+            <div data-id="select-tone-of-voice" class="hidden field required">
+                <label for="select-tone-of-voice"><?= $block->escapeHtml(__("Voice Tones"))?>:</label>
+                <select class="admin__control-select" id="select-tone-of-voice" data-validate='{"required":true}'
+                 data-name="tone_of_voice">
+                 <option value="default">Default</option>
+                 <option value="authoritative">Authoritative</option>
+                 <option value="caring">Caring</option>
+                 <option value="casual">Casual</option>
+                 <option value="cheerful">Cheerful</option>
+                 <option value="coarse">Coarse</option>
+                 <option value="conservative">Conservative</option>
+                 <option value="conversational">Conversational</option>
+                 <option value="creative">Creative</option>
+                 <option value="dry">Dry</option>
+                 <option value="edgy">Edgy</option>
+                 <option value="enthusiastic">Enthusiastic</option>
+                 <option value="expository">Expository</option>
+                 <option value="formal">Formal</option>
+                 <option value="frank">Frank</option>
+                 <option value="friendly">Friendly</option>
+                 <option value="fun">Fun</option>
+                 <option value="funny">Funny</option>
+                 <option value="humorous">Humorous</option>
+                 <option value="informative">Informative</option>
+                 <option value="irreverent">Irreverent</option>
+                 <option value="journalistic">Journalistic</option>
+                 <option value="matteroffact">Matter of fact</option>
+                 <option value="nostalgic">Nostalgic</option>
+                 <option value="objective">Objective</option>
+                 <option value="passionate">Passionate</option>
+                 <option value="poetic">Poetic</option>
+                 <option value="playful">Playful</option>
+                 <option value="professional">Professional</option>
+                 <option value="provocative">Provocative</option>
+                 <option value="quirky">Quirky</option>
+                 <option value="respectful">Respectful</option>
+                 <option value="romantic">Romantic</option>
+                 <option value="sarcastic">Sarcastic</option>
+                 <option value="serious">Serious</option>
+                 <option value="smart">Smart</option>
+                 <option value="snarky">Snarky</option>
+                 <option value="subjective">Subjective</option>
+                 <option value="sympathetic">Sympathetic</option>
+                 <option value="trendy">Trendy</option>
+                 <option value="trustworthy">Trustworthy</option>
+                 <option value="unapologetic">Unapologetic</option>
+                 <option value="upbeat">Upbeat</option>
+                 <option value="witty">Witty</option>
+                </select>
+            </div>
+            <div data-id="select-writing-style" class="hidden field required">
+                <label for="select-writing-style"><?= $block->escapeHtml(__("Writing Styles"))?>:</label>
+                <select class="admin__control-select" id="select-writing-style" data-validate='{"required":true}' 
+                data-name="writing_style">
+                    <option value="default">Default</option>
+                    <option value="academic">Academic</option>
+                    <option value="analytical">Analytical</option>
+                    <option value="argumentative">Argumentative</option>
+                    <option value="conversational">Conversational</option>
+                    <option value="creative">Creative</option>
+                    <option value="critical">Critical</option>
+                    <option value="descriptive">Descriptive</option>
+                    <option value="epigrammatic">Epigrammatic</option>
+                    <option value="epistolary">Epistolary</option>
+                    <option value="expository">Expository</option>
+                    <option value="informative">Informative</option>
+                    <option value="instructive">Instructive</option>
+                    <option value="journalistic">Journalistic</option>
+                    <option value="metaphorical">Metaphorical</option>
+                    <option value="narrative">Narrative</option>
+                    <option value="persuasive">Persuasive</option>
+                    <option value="poetic">Poetic</option>
+                    <option value="satirical">Satirical</option>
+                    <option value="technical">Technical</option>
+                </select>
+            </div>
+        </div>
+        <div class="row" id="section-inputs"></div>
+        <div class="wk-row hidden field required" id="section-prompt">
+            <div>
+                <label><?= $block->escapeHtml(__("Prompt Template"))?></label> 
+                <textarea rows="10" cols="100" id="promptTextarea"></textarea>
+            </div>
+        </div>
+        <button class="action primary" id="save-template" onclick="return false;">
+            <?= $block->escapeHtml(__("Save Template"))?>
+        </button>
+        <a href="<?= $block->escapeHtml($block->getUrl('*/*/')) ?>" id="go-back">
+            <?= $block->escapeHtml(__("Go back"))?>
+        </a>
+    </fieldset>
+</form>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "chatgptPromptTemplates": <?= /*@noEscape */ $block->jsonHelper->jsonEncode($templateData) ?>
+    }
+}
+</script>

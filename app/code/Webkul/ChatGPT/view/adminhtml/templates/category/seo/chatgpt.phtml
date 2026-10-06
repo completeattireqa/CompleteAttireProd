@@ -1,0 +1,37 @@
+<?php
+
+$helper = $block->getChatGPTHelper();
+$currentStoreId = $block->getRequest()->getParam('store')??'0';
+$config = $helper->getModuleConfig($currentStoreId);
+$isSEOEnabled = $helper->isSEOEnabled($currentStoreId);
+$storelocale = $helper->getCurrentStoreLocale();
+$buttonTitle = __('Fill description with Chat GPT');
+$currentController = $block->getRequest()->getControllerName();
+$currentRoute = $block->getRequest()->getRouteName();
+?>
+<input type="hidden" value="<?= /* @noEscape */ $currentStoreId ?>" id="store_id" />
+<input type="hidden" value="<?= /* @noEscape */ $currentController ?>" id="prompt_target" />
+<input type="hidden" value="<?= /* @noEscape */ $currentRoute ?>" id="route_name" />
+<?php
+if ($config['active'] && $isSEOEnabled): ?>
+<div class="admin__field" data-bind="css: $data.additionalClasses, attr: {'data-index': index}, visible: visible">
+    <div class="admin__field-control" style="text-align: center; padding: 5px 0px;">
+        <?= /*@noEscape*/ $block->getButtonHtml();?>
+    </div>
+</div>
+<input type="hidden" value="<?= /* @noEscape */ $storelocale ?>" id="store_locale" />
+<script>
+    requirejs(['chatgptCategorySeo']);
+    window.buttonTitle = "<?= /* @noEscape */ $buttonTitle; ?>"
+</script>
+<?php else: ?>
+<script>
+    jQuery(document).on('DOMNodeInserted', function(e) {
+    var chatgptSection = jQuery(e.target).find('#menu-section-chatgpt');
+    if (chatgptSection.length > 0) {
+        jQuery('#menu-section-chatgpt').remove();
+    }
+    });
+</script>
+<?php endif;
+?>

@@ -1,0 +1,33 @@
+<?php
+    /**
+     * Webkul Software.
+     *
+     * @category  Webkul
+     * @package   Webkul_MpFedexShipping
+     * @author    Webkul
+     * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+     * @license   https://store.webkul.com/license.html
+     */
+?>
+<?php
+    $viewBlock =  $block->getLayout()->createBlock(\Webkul\MpFedexShipping\Block\MpFedexList::class);
+    $helper = $viewBlock->helper(\Webkul\MpFedexShipping\Helper\Data::class);
+    $_helper = $viewBlock->helper(\Webkul\Marketplace\Helper\Data::class);
+    $isPartner = $_helper->isSeller();
+    $magentoCurrentUrl = $block->getCurrentUrl();
+?>
+<?php
+if ($isPartner && $helper->getConfigData('active') && $helper->getConfigData('allow_seller')) { ?>
+        <li class="nav item <?= /* @noEscape */ strpos($magentoCurrentUrl, 'mpfedex/shipping/view')!==false? "current":"";?>">
+       <?php
+        if (strpos($magentoCurrentUrl, 'mpfedex/shipping/view')!==false) { ?>      
+            <strong><?= /* @noEscape */ __('Manage Fedex Shipping') ?></strong>              
+            <?php
+        } else { ?>        
+            <a href="<?= /* @noEscape */ $block->getUrl('mpfedex/shipping/view'); ?>">
+                <?= /* @noEscape */ __('Manage Fedex Shipping') ?>
+            </a>                    
+            <?php
+        } ?>                  
+        </li> 
+<?php }?>

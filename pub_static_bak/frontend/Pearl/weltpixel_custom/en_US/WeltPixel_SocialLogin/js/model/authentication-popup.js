@@ -1,0 +1,1 @@
+/opt/bitnami/apps/magento/htdocs/app/code/WeltPixel/SocialLogin/view/frontend/web/js/model/authentic

@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_ChatGPT
+ * @author    Webkul Software Private Limited
+ * @copyright   Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="webkul" translate="label" sortOrder="10" class="wk-config-tab-class">
+            <label>Webkul</label>
+        </tab>
+        <section id="chatgpt" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Chat GPT </label>
+
+            <tab>webkul</tab>
+            <resource>Webkul_ChatGPT::config_chatgpt</resource>
+
+            <group id="general_settings" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="active" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Module</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="secret" translate="label" sortOrder="20" type="obscure" showInDefault="1">
+                    <label>Api Secret</label>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                     <validate>required-entry</validate>
+                </field>
+                
+                <field id="gpt_model" translate="label" sortOrder="25" type="select" showInDefault="1">
+                    <label>ChatGPT Model</label>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                    <source_model>Webkul\ChatGPT\Model\Config\Source\ChatGPTModel</source_model>
+                    <validate>required-entry</validate>
+                </field>
+
+                <field id="attributes" translate="label" sortOrder="30" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Content Based On selected Attributes</label>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                    <source_model>Webkul\ChatGPT\Model\Config\Source\AttributesList</source_model>
+                     <validate>required-entry</validate>
+                </field>
+
+                <field id="seo_enabled" translate="label" sortOrder="50" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Import SEO Content</label>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="seo_attributes" translate="label" sortOrder="60" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>SEO Attributes</label>
+                    <depends>
+                        <field id="seo_enabled">1</field>
+                        <field id="active">1</field>
+                    </depends>
+                    <source_model>Webkul\ChatGPT\Model\Config\Source\SEOAttributesList</source_model>
+                    <validate>validate-select</validate>
+                </field>
+
+                <field id="enable_prompt_templates" translate="label" sortOrder="70" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Prompt Templates</label>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="product_prompt_template" translate="label" sortOrder="80" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Description Prompt Template</label>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="enable_prompt_templates">1</field>
+                    </depends>
+                    <source_model>Webkul\ChatGPT\Model\Config\Source\PromptTemplates</source_model>
+                    <validate>validate-select</validate>
+                </field>
+                <field id="category_prompt_template" translate="label" sortOrder="80" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Category Description Prompt Template</label>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="enable_prompt_templates">1</field>
+                    </depends>
+                    <source_model>Webkul\ChatGPT\Model\Config\Source\PromptTemplates</source_model>
+                    <validate>validate-select</validate>
+                </field>
+                <field id="cmspage_prompt_template" translate="label" sortOrder="80" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>CMS Page Prompt Template</label>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="enable_prompt_templates">1</field>
+                    </depends>
+                    <source_model>Webkul\ChatGPT\Model\Config\Source\PromptTemplates</source_model>
+                    <validate>validate-select</validate>
+                </field>
+            </group>
+            <group id="product_information" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Webkul Chat GPT Product Information</label>
+                <field id="author" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Webkul\ChatGPT\Block\Adminhtml\SupportLinks</frontend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

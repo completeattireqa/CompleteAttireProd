@@ -1,0 +1,183 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+namespace Webmull\AffiliateProduct\Setup;
+
+use Magento\Eav\Setup\EavSetup;
+use Magento\Eav\Setup\EavSetupFactory;
+use Magento\Framework\Setup\InstallDataInterface;
+use Magento\Framework\Setup\ModuleContextInterface;
+use Magento\Framework\Setup\ModuleDataSetupInterface;
+use Magento\Catalog\Setup\CategorySetupFactory;
+ 
+class InstallData implements InstallDataInterface
+{
+    /**
+     * EAV setup factory
+     *
+     * @var EavSetupFactory
+     */
+    protected $eavSetupFactory;
+ 
+    /**
+     * Init
+     *
+     * @param EavSetupFactory $eavSetupFactory
+     */
+    public function __construct(EavSetupFactory $eavSetupFactory,CategorySetupFactory $categorySetupFactory)
+    {
+        $this->eavSetupFactory = $eavSetupFactory;
+        $this->categorySetupFactory = $categorySetupFactory;
+    }
+ 
+    /**
+     * {@inheritdoc}
+     */
+    public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
+    {
+       /** @var EavSetup $eavSetup */
+       $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
+
+		$categorySetup->addAttribute(
+            \Magento\Catalog\Model\Product::ENTITY,
+            'enable_affiliate_link',
+            [	
+				'group' => 'Affiliate',
+                'type' => 'int',
+                'backend' => '',
+                'frontend' => '',
+                'label' => 'Enable Affiliate Link',
+                'input' => 'boolean',
+                'class' => '',
+                'source' => '',
+                'global' => \Magento\Catalog\Model\ResourceModel\Eav\Attribute::SCOPE_GLOBAL,
+                'visible' => true,
+                'required' => false,
+                'user_defined' => true,
+                'default' => '',
+                'searchable' => false,
+                'filterable' => false,
+                'comparable' => false,
+                'visible_on_front' => false,
+                'used_in_product_listing' => true,
+                'unique' => false,
+                'apply_to' => 'affiliate'
+            ]
+        );
+	   $categorySetup->addAttribute(
+            \Magento\Catalog\Model\Product::ENTITY,
+            'affiliate_link_url',
+            [
+                'group' => 'Affiliate',
+                'type' => 'varchar',
+                /*'backend' => 'Magento\GiftCard\Model\Attribute\Backend\Giftcard\Amount',*/
+                'frontend' => '',
+                'label' => 'Affiliate Link Url',
+                'input' => 'text',
+                'class' => '',
+                'source' => '',
+                'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_WEBSITE,
+                'visible' => true,
+                'required' => false,
+                'user_defined' => false,
+                'default' => '',
+                'searchable' => false,
+                'filterable' => false,
+                'comparable' => false,
+                'visible_on_front' => false,
+                'unique' => false,
+                'apply_to' => 'affiliate',
+                'used_in_product_listing' => true,
+                'sort_order' => -5
+            ]
+        );
+
+        $categorySetup->addAttribute(
+            \Magento\Catalog\Model\Product::ENTITY,
+            'affiliate_link_text',
+            [
+                'group' => 'Affiliate',
+                'type' => 'varchar',
+                'backend' => '',
+                'frontend' => '',
+                'label' => 'Affiliate link Text',
+                'input' => 'text',
+                /*'input_renderer' => 'Magento\GiftCard\Block\Adminhtml\Renderer\OpenAmount',*/
+                'class' => '',
+                /*'source' => 'Magento\GiftCard\Model\Source\Open',*/
+                'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_WEBSITE,
+                'visible' => true,
+                'required' => false,
+                'user_defined' => false,
+                'default' => '',
+                'searchable' => false,
+                'filterable' => false,
+                'comparable' => false,
+                'visible_on_front' => false,
+                'unique' => false,
+                'apply_to' => 'affiliate',
+                'used_in_product_listing' => true,
+                'sort_order' => -4
+            ]
+        );
+        $categorySetup->addAttribute(
+            \Magento\Catalog\Model\Product::ENTITY,
+            'affiliate_open',
+            [
+                'group' => 'Affiliate',
+                'type' => 'int',
+                'backend' => '',
+                'frontend' => '',
+                'label' => 'Open In',
+                'input' => 'select',
+                'class' => '',
+                'source' => 'Webmull\AffiliateProduct\Model\Source\Open',
+                'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
+                'visible' => true,
+                'required' => true,
+                'user_defined' => false,
+                'default' => '',
+                'searchable' => false,
+                'filterable' => false,
+                'comparable' => false,
+                'visible_on_front' => false,
+                'unique' => false,
+                'apply_to' => 'affiliate'
+            ]
+        );
+		
+	   
+	   
+       //associate these attributes with new product type
+       $fieldList = [
+           'price',
+           'special_price',
+           'special_from_date',
+           'special_to_date',
+           'minimal_price',
+           'cost',
+           'tier_price',
+           'weight',
+       ];
+       // make these attributes applicable to new product type
+       foreach ($fieldList as $field) {
+           $applyTo = explode(
+               ',',
+               $eavSetup->getAttribute(\Magento\Catalog\Model\Product::ENTITY, $field, 'apply_to')
+           );
+           if (!in_array('affiliate', $applyTo)) {
+               $applyTo[] = 'affiliate';
+               $eavSetup->updateAttribute(
+                   \Magento\Catalog\Model\Product::ENTITY,
+                   $field,
+                   'apply_to',
+                   implode(',', $applyTo)
+               );
+           }
+       }
+
+    }
+}

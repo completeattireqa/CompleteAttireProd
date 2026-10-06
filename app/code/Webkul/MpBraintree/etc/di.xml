@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category Webkul
+ *
+ * @author    Webkul
+ * @copyright Copyright (c) 2010-2017 Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Webkul\MpBraintree\Api\BraintreeOrderManagementInterface" type="Webkul\MpBraintree\Model\BraintreeOrderManagement" />
+    <preference for="Webkul\MpBraintree\Api\BraintreeHooksManagerInterface" type="Webkul\MpBraintree\Model\BraintreeHooksManager" />
+
+    <type name="\Magento\Sales\Model\Order\Creditmemo">
+        <plugin name="Webkul_MpBraintree::afterIsLast"
+                type="Webkul\MpBraintree\Plugin\Creditmemo\AfterIsLast"
+                sortOrder="20" />
+    </type>
+
+    <type name="Webkul\MpBraintree\Controller\Webhook\Index">
+        <arguments>
+            <argument name="webhookManager" xsi:type="object">Webkul\MpBraintree\Model\BraintreeHooksManager\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\MpBraintree\Observer\CheckoutAllSubmitAfterObserver">
+        <arguments>
+            <argument name="braintreOrderManager" xsi:type="object">Webkul\MpBraintree\Model\BraintreeOrderManagement\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\MpBraintree\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\MpBraintree\Logger\BraintreeLogger">
+        <arguments>
+            <argument name="name" xsi:type="string">mpbraintree</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Webkul\MpBraintree\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\MpBraintree\Logger\CronHandler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\MpBraintree\Logger\CronLogger">
+        <arguments>
+            <argument name="name" xsi:type="string">mpbraintree</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Webkul\MpBraintree\Logger\CronHandler</item>
+            </argument>
+        </arguments>
+    </type>
+
+
+    <!-- Payment Method Facade configuration -->
+    <virtualType name="MpBraintreeFacade" type="Magento\Payment\Model\Method\Adapter">
+        <arguments>
+            <argument name="code" xsi:type="const">Webkul\MpBraintree\Model\Ui\ConfigProvider::CODE</argument>
+            <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form</argument>
+            <argument name="infoBlockType" xsi:type="string">Magento\Payment\Block\Info</argument>
+            <argument name="valueHandlerPool" xsi:type="object">MpBraintreeValueHandlerPool</argument>
+            <argument name="validatorPool" xsi:type="object">MpBraintreeValidatorPool</argument>
+            <argument name="commandPool" xsi:type="object">MpBraintreeCommandPool</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="MpBraintreeValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">MpBraintreeConfigValueHandler</item>
+                <!--<item name="can_void" xsi:type="string">Webkul\MpBraintree\Gateway\Config\CanVoidHandler</item>
+                <item name="can_cancel" xsi:type="string">Webkul\MpBraintree\Gateway\Config\CanVoidHandler</item>-->
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="MpBraintreeConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">Webkul\MpBraintree\Gateway\Config\Config</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Braintree validators infrastructure -->
+    <virtualType name="MpBraintreeCountryValidator" type="Magento\Payment\Gateway\Validator\CountryValidator">
+        <arguments>
+            <argument name="config" xsi:type="object">Webkul\MpBraintree\Gateway\Config\Config</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="MpBraintreeValidatorPool" type="Magento\Payment\Gateway\Validator\ValidatorPool">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="country" xsi:type="string">MpBraintreeCountryValidator</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Configuration reader -->
+    <type name="Webkul\MpBraintree\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="const">Webkul\MpBraintree\Model\Ui\ConfigProvider::CODE</argument>
+        </arguments>
+    </type>
+
+        <!-- Logger, initialized with BraintreeConfig -->
+    <virtualType name="MpBraintreeLoggerForTransactionSale" type="Magento\Payment\Model\Method\Logger">
+        <arguments>
+            <argument name="config" xsi:type="object">Webkul\MpBraintree\Gateway\Config\Config</argument>
+        </arguments>
+    </virtualType>
+    <type name="Webkul\MpBraintree\Gateway\Http\Client\TransactionSale">
+        <arguments>
+            <argument name="customLogger" xsi:type="object">MpBraintreeLoggerForTransactionSale</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\MpBraintree\Gateway\Http\Client\TransactionSubmitForSettlement">
+        <arguments>
+            <argument name="customLogger" xsi:type="object">MpBraintreeLoggerForTransactionSale</argument>
+        </arguments>
+    </type>
+    <type name="Webkul\MpBraintree\Gateway\Http\Client\TransactionRefund">
+        <arguments>
+            <argument name="customLogger" xsi:type="object">MpBraintreeLoggerForTransactionSale</argument>
+        </arguments>
+    </type>
+    <type name="Webkul\MpBraintree\Gateway\Http\Client\TransactionVoid">
+        <arguments>
+            <argument name="customLogger" xsi:type="object">MpBraintreeLoggerForTransactionSale</argument>
+        </arguments>
+    </type>-->
+    <!-- END Logger, initialized with BraintreeConfig -->
+
+    <!--mpbraintree command pool-->
+    <virtualType name="MpBraintreeCommandPool" type="Magento\Payment\Gateway\Command\CommandPool">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="authorize" xsi:type="string">MpBraintreeAuthorizeCommand</item>
+                <!--<item name="sale" xsi:type="string">MpBraintreeSaleCommand</item>-->
+                <item name="capture" xsi:type="string">MpBraintreeCaptureStrategyCommand</item>
+                <item name="settlement" xsi:type="string">MpBraintreeCaptureCommand</item>
+                <item name="refund" xsi:type="string">MpBraintreeRefundCommand</item>
+                <item name="void" xsi:type="string">MpBraintreeVoidCommand</item>
+                <item name="cancel" xsi:type="string">MpBraintreeVoidCommand</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="MpBraintreeAuthorizeCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">MpBraintreeAuthorizeRequest</argument>
+            <argument name="transferFactory" xsi:type="object">Webkul\MpBraintree\Gateway\Http\TransferFactory</argument>
+            <argument name="client" xsi:type="object">Webkul\MpBraintree\Gateway\Http\Client\TransactionSale</argument>
+            <argument name="handler" xsi:type="object">MpBraintreeAuthorizationHandler</argument>
+            <!--<argument name="validator" xsi:type="object">Webkul\MpBraintree\Gateway\Validator\ResponseValidator</argument>-->
+        </arguments>
+    </virtualType>
+    <virtualType name="MpBraintreeAuthorizeRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+               <item name="seller" xsi:type="string">Webkul\MpBraintree\Gateway\Request\SellerDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="MpBraintreeCaptureStrategyCommand" type="Webkul\MpBraintree\Gateway\Command\CaptureStrategyCommand">
+        <arguments>
+            <argument name="braintreeCommandPool" xsi:type="object">MpBraintreeCommandPool</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="MpBraintreeCaptureStrategyCommand" type="Webkul\MpBraintree\Gateway\Command\CaptureStrategyCommand">
+        <arguments>
+            <argument name="braintreeCommandPool" xsi:type="object">MpBraintreeCommandPool</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Capture commands  -->
+    <virtualType name="MpBraintreeCaptureCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">MpBraintreeCaptureRequest</argument>
+            <argument name="transferFactory" xsi:type="object">Webkul\MpBraintree\Gateway\Http\TransferFactory</argument>
+            <argument name="client" xsi:type="object">Webkul\MpBraintree\Gateway\Http\Client\TransactionSubmitForSettlement</argument>
+            <argument name="handler" xsi:type="object">Webkul\MpBraintree\Gateway\Response\TransactionIdHandler</argument>
+            <argument name="validator" xsi:type="object">Webkul\MpBraintree\Gateway\Validator\ResponseValidator</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="MpBraintreeCaptureRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="capture" xsi:type="string">Webkul\MpBraintree\Gateway\Request\CaptureDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Void Command -->
+    <virtualType name="MpBraintreeVoidCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="client" xsi:type="object">Webkul\MpBraintree\Gateway\Http\Client\TransactionVoid</argument>
+            <argument name="requestBuilder" xsi:type="object">Webkul\MpBraintree\Gateway\Request\VoidDataBuilder</argument>
+            <argument name="handler" xsi:type="object">Webkul\MpBraintree\Gateway\Response\VoidHandler</argument>
+            <argument name="validator" xsi:type="object">Webkul\MpBraintree\Gateway\Validator\GeneralResponseValidator</argument>
+            <argument name="transferFactory" xsi:type="object">Webkul\MpBraintree\Gateway\Http\TransferFactory</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Refund Command -->
+    <virtualType name="MpBraintreeRefundCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="client" xsi:type="object">Webkul\MpBraintree\Gateway\Http\Client\TransactionRefund</argument>
+            <argument name="requestBuilder" xsi:type="object">Webkul\MpBraintree\Gateway\Request\RefundDataBuilder</argument>
+            <argument name="validator" xsi:type="object">Webkul\MpBraintree\Gateway\Validator\GeneralResponseValidator</argument>
+            <argument name="handler" xsi:type="object">Webkul\MpBraintree\Gateway\Response\RefundHandler</argument>
+            <argument name="transferFactory" xsi:type="object">Webkul\MpBraintree\Gateway\Http\TransferFactory</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Configuration reader -->
+    <type name="Webkul\MpBraintree\Gateway\Request\SellerDataBuilder">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="customer" xsi:type="string">Webkul\MpBraintree\Gateway\Request\CustomerDataBuilder</item>
+                <item name="channel" xsi:type="string">Webkul\MpBraintree\Gateway\Request\ChannelDataBuilder</item>
+                <item name="address" xsi:type="string">Webkul\MpBraintree\Gateway\Request\AddressDataBuilder</item>
+            </argument>
+        </arguments>
+    </type>
+
+
+    <virtualType name="MpBraintreeAuthorizationHandler" type="Magento\Payment\Gateway\Response\HandlerChain">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="payment_details" xsi:type="string">Webkul\MpBraintree\Gateway\Response\PaymentDetailsHandler</item>
+                <item name="txn_id" xsi:type="string">Webkul\MpBraintree\Gateway\Response\TransactionIdHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="\Webkul\Marketplace\Helper\Data">
+       <plugin name="Webkul_MpBraintree::updatedHelperDataFile"
+               type="Webkul\MpBraintree\Plugin\Helper\Data"
+               sortOrder="100" />
+    </type>
+</config>

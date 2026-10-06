@@ -1,0 +1,28 @@
+.wk-save-button{
+    text-align: right !important;
+}
+.wk-display-none-blog {
+    display:block;
+}
+.blog-error {
+    color: #e02b27;
+}
+#wk-blog-manager #wk-blog-fieldset .control{
+    width: 100% !important;
+
+}
+.fieldset > .field:not(.choice) > .control  {
+    width: 100%!important;
+}
+.fieldset > .field:not(.choice) > .label  {
+    width: auto!important;
+    margin:8px 0px;
+}
+fieldset.fieldset.info.wk-blog-fieldset {
+    margin: 0;
+    border-top: none;
+    min-width: 100%;
+    width: 250px;
+    display: inline-block;
+    overflow: auto;
+}

@@ -1,0 +1,119 @@
+<?php
+
+/**
+ * Webkul Software
+ *
+ * @category    Webkul
+ * @package     Webkul_Blog
+ * @author      Webkul
+ * @copyright   Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license     https://store.webkul.com/license.html
+ */
+
+$customerId = $block->getcustomerId();
+$path = $block->getUrl();
+$action = $path . "wkblog/blog/index";
+$blogHelper = $this->helper('Webkul\Blog\Helper\Data');
+$limit = $blogHelper->getCharacterLimit();
+$isBlogger = $blogHelper->isCustomerBlogger();
+$isLoggedIn = $this->helper('Webkul\Blog\Helper\Data')->getCustomerLoginInfo();
+$collection = $block->getBlogCollection();
+$collectionSize = $collection->getSize(); ?>
+<?php
+if ($isLoggedIn) {
+    if ($isBlogger) {
+        if ($collectionSize) {
+            if ($customerId) { ?>
+                <?php foreach ($collection as $blog) : ?>
+                    <?php $name = $blog->getCustomerName(); ?>
+                <?php endforeach; ?>
+                <button onclick="location.href = '<?php echo $block->escapeHtml($action) ?>';" id="wk-blog-button"
+                style = "background-color: black; border: 0px solid black;"
+                class="button">
+                    <?php echo $block->escapeHtml(__("Add New Post")); ?></button>
+                <!-- <h4 class='WK_textcolor wk-heading'><?php // echo $block->escapeHtml($name); 
+                                                            ?></h4> -->
+                <span class='WK_textcolor wk-heading' style="padding-bottom: 15px;text-transform: uppercase;"><?php echo $block->escapeHtml(__('My Blog List')); ?></span>
+                <!-- blog post section -->
+                <?php foreach ($collection as $blog) : ?>
+                    <div class='wk-blog-block'>
+                        <h2 class='WK_textcolor'>
+                            <a href='<?php echo $block->escapeHtml($this->getUrl()); ?>wkblog/blog/title/blogid/<?php echo $block->escapeHtml($blog->getId()); ?>' role='button' class='btn'>
+                                <div class='title'><?php echo $block->escapeHtml($blog->getSubject()); ?></div>
+                            </a>
+                        </h2>
+                        <p class='post-meta tags' style='margin-top:20px;'>
+                            <span class='date'><?php echo $block->escapeHtml($blog->getCreatedAt());  ?> </span>
+                            <a href='<?php echo $block->escapeHtml($this->getUrl()); ?>wkblog/blog/user/userid/<?php echo $block->escapeHtml($blog->getUserId()); ?>' role='button' class='btn'>
+                                <span class='author'><?php echo $block->escapeHtml($name); ?> </span>
+                            </a>
+                            <?php if ($blog->getCategory() != "") : ?>
+                                <?php if ($blog->getStatus() != 0) : ?>
+                                    <a href='<?php echo $block->escapeHtml($this->getUrl()); ?>wkblog/category/category/categoryid/<?php echo $block->escapeHtml($blog->getCategoryId()); ?>' role='button' class='btn'>
+                                        <span class='cats'><?php echo $block->escapeHtml($blog->getCategory()) ?></span>
+                                    </a>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                            <a href='<?php echo $block->escapeHtml($this->getUrl()); ?>wkblog/blog/index/blogid/<?php echo $block->escapeHtml($blog->getId()); ?>' role='button' class='btn'>
+                                <span class='edit'></span>
+                            </a>
+                            <span class='delete' data-url="<?php echo $this->getUrl('wkblog/blog/delete/', ['id' => $block->escapeHtml($blog->getId()), '_secure' => $block->escapeHtml($this->getRequest()->isSecure())]); ?>"></span>
+                        </p>
+                        <?php if (strlen($blog->getPreview()) > $limit) : ?>
+                            <?php $content = substr($blog->getPreview(), 0, $limit) . "..."; ?>
+                        <?php else : ?>
+                            <?php $content = $blog->getPreview(); ?>
+                        <?php endif; ?>
+                        <div class='WK_tbodyingedit_content'><?php echo $content; ?></div>
+                        <p class='tags'>
+                            <span class='tag'>
+                                <?php $tags = $blog->getTag();
+                                $tagsArray = explode(',', $tags); ?>
+                                <?php foreach ($tagsArray as $tag) : ?>
+                                    <?php if ($tag != "") : ?>
+                                        <a href='<?php echo $block->escapeHtml($this->getUrl()); ?>wkblog/blog/tag/tag/<?php echo $block->escapeHtml($tag); ?>' role='button' class='btn'><span class='tag'><?php echo $block->escapeHtml($tag); ?> ,</span></a>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </span>
+                        </p>
+                        <hr>
+                    </div>
+                <?php endforeach; ?>
+                <div class='wk-pager'>
+                    <?php if ($block->getPagerHtml()) : ?>
+                        <div class="order-products-toolbar bottom"><?php /* @escapeNotVerified */ echo $block->getPagerHtml(); ?></div>
+                    <?php endif; ?>
+                </div>
+                <div class='wk-footer'>
+                    <div class="wk-buttons-set">
+                        <p class="wk-back-link">
+                            <a class="wk-left" onclick="javascript: window.history.back();" href="javascript:;">« Back</a>
+                        </p>
+                    </div>
+                </div>
+            <?php
+            }
+        } else {
+            ?>
+            <div class='WK_textcolor'> <?php echo $block->escapeHtml(__('No Post Exist!')); ?></div>
+        <?php
+        }
+    } else {
+        ?>
+        <div class='WK_textcolor'> <?php echo $block->escapeHtml(__('YOU ARE NOT SUBSCRIBE FOR BLOGS')); ?> </div>
+<?php
+    }
+}
+?>
+
+<?php $optionElements = [
+    'delete'    => '.delete'
+];
+$serializedData = $this->helper('Magento\Framework\Json\Helper\Data')->jsonEncode($optionElements); ?>
+<script type="text/x-magento-init">
+    {
+"*":{
+        "deletePost":<?php /* @noEscape */ echo $serializedData; ?>
+    }
+}
+</script>

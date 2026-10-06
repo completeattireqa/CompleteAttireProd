@@ -1,0 +1,47 @@
+.studentForm{
+    display:inline-block;
+}
+.tablepostion {
+    margin-left: 35px;
+    margin-right: 40px;
+    width: 91%;
+}
+.asterisk{
+    color:red;
+}
+thead{
+
+}
+.textcolor {
+    color: #0899C9;
+    font-size: 20px;
+    height: 35px;
+    margin-left: 20px;
+    margin-top: 15px;
+}
+th{
+color: #0899C9;
+font-size: 20px;
+height: 35px;
+margin-left: 20px;
+margin-top: 15px;
+  }
+.button{
+    content-align:right;
+    background: none repeat scroll 0 0 #09AEE7;
+    border: medium none;
+    border-radius: 13px 13px 13px 13px;
+    box-shadow: 2px 1px #C2C2C2;
+    color: white;
+    cursor: pointer;
+    height: 26px;
+    margin: 10px;
+    width: 15%;
+
+}
+#category{
+    width:400px;
+}
+.head{
+    display: inline;
+}

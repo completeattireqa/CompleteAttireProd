@@ -1,0 +1,46 @@
+Legend
+
++ Features
+- Issues
+
+-------------------------------- Version 4.0.6 --------------------------------------
+    + Compatible with ChatGPT 4
+    - Minor Bugs Fixed
+
+-------------------------------- Version 4.0.5 --------------------------------------
+    + Admin can add Category Description using ChatGPT
+    + Admin can Import SEO Content for categories using ChatGPT
+    + Admin can add CMS page description using page builder by clicking Fill Description with ChatGPT.
+    + Admin can fill CMS page description based on custom query by typing the query in the textarea/page builder like \\{query}.
+    + Admin can add CMS page description using ChatGPT even if page builder is disabled.
+    + Admin can add description for CMS pages using Mass Action
+    + Admin can add SEO Content for CMS pages using Mass Action
+    + Admin can add ChatGPT Prompt Templates
+    + Admin can enable/disable Prompt Templates
+    + Admin can choose ChatGPT Prompt Template for Product Description
+    + Admin can choose ChatGPT Prompt Template for Category Description
+    + Admin can choose ChatGPT Prompt Template for CMS Pages Description
+
+-------------------------------- Version 4.0.4 --------------------------------------
+    + Admin can Import SEO Content for products using ChatGPT
+    - Minor Bugs Fixed
+
+-------------------------------- Version 4.0.3 --------------------------------------
+    + Compatible with Magento 2.4.6
+
+-------------------------------- Version 4.0.2 --------------------------------------
+    + Added Multi-Lingual Support
+
+-------------------------------- Version 4.0.1 --------------------------------------
+    - Fixed Bugs
+
+-------------------------------- Version 4.0.0 --------------------------------------
+    + Admin can add short description for products using ChatGPT.
+    + Admin can add description for products using page builder by clicking Fill Description with ChatGPT.
+    + Admin can fill description based on custom query by typing the query in the textarea/page builder like \\{query}.
+    + Admin can add description even if page builder is disabled.
+    + Admin can add short description for mutiple products at once using Mass Action.
+    + Admin can add description for mutiple products at once using Mass Action.
+    + Admin can choose product Attributes to fill short description and description in Mass Action to be based on.
+    + Admin can enable/disable the module.
+

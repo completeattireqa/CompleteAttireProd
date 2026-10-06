@@ -1,0 +1,70 @@
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_EmailUnsubscribe
+ * @author    Webkul
+ * @copyright Copyright (c) 2010-2018 Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+h1 {
+    margin-bottom: 0px !important;
+    font-size: 25px !important;
+}
+
+a.logo {
+   padding-left: 39%;
+   max-width: 100% !important;
+}
+
+.header_right {
+    display: none;
+}
+
+.block-search {
+    display: none;
+}
+
+.wk-mp-design {
+    width: 100%;
+    padding: 20px;
+}
+
+.reason {
+    font-size: 14px;
+    padding: 5px 10px;
+}
+
+.wk-heading h2 {
+    line-height: unset !important;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.wk-label h2 {
+    line-height: unset !important;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.wk-mp-design form {
+    margin-top: 30px;
+}
+
+.btn-grp {
+    margin-top: 12px;
+}
+
+#save-btn {
+    border-radius: 4px;
+}
+@media only screen and (max-width: 768px) {
+    a.logo {
+        padding-left: 32%;
+        max-width: 100% !important;
+    }
+}
+ 

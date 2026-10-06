@@ -1,0 +1,20 @@
+{
+    "name": "webkul/chat_gpt",
+    "description": "ChatGPT module for Magento2 ",
+    "require": {
+        "magento/framework": "101.0.*"
+    },
+    "type": "magento2-module",
+    "version": "4.0.6",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Webkul\\ChatGPT\\": ""
+        }
+    }
+}

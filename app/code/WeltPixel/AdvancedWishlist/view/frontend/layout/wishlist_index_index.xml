@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block ifconfig="weltpixel_advancedwishlist/general/enable_sharewishlist" before="-" name="wishlist.share.container" class="WeltPixel\AdvancedWishlist\Block\ShareWishlist" template="WeltPixel_AdvancedWishlist::sharewishlist.phtml" />
+            <block ifconfig="weltpixel_advancedwishlist/general/enable_multiwishlist" before="-"  name="wishlist.go.back" class="WeltPixel\AdvancedWishlist\Block\MultipleWishlistTitle" template="WeltPixel_AdvancedWishlist::multiwishlist/goback.phtml" />
+        </referenceContainer>
+        <referenceBlock name="customer.wishlist.button.share">
+            <action method="setTemplate" ifconfig="weltpixel_advancedwishlist/general/disable_default_share">
+                <argument name='template' xsi:type='string'>WeltPixel_AdvancedWishlist::button/empty.phtml</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

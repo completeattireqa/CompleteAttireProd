@@ -1,0 +1,49 @@
+<!-- 
+/**
+ * Webkul Software
+ *
+ * @category    Webkul
+ * @package     Webkul_Blog
+ * @author      Webkul
+ * @copyright   Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license     https://store.webkul.com/license.html
+ */ -->
+<?php
+$isPermitted = $block->isCustomerPermitted();
+$isLogin = $block->IsCustomerLogin();
+?>
+<?php if ($isLogin) : ?>
+    <?php if ($isPermitted) : ?>
+        <li class='nav item'>
+            <p class="nav item" id="wk-menu"><a href="#"><?php echo $block->escapeHtml(__("Blog"));?></a></p>
+            <ul id="wknewblog">
+                <li class="item even" id="wk_addblog">
+                    <p class="product-name"><a href="<?php /* @escapeNotVerified */ echo $block->escapeHtml($this->getUrl('wkblog/blog/index'));?>">
+                    <?php echo $block->escapeHtml(__("Add New Post"));?></a></p>
+                </li>
+                <li class="item last odd" id="wk_addblogodd">
+                    <p class="product-name"><a href="<?php echo $block->escapeHtml($this->getUrl('wkblog/blog/viewallpost')); ?>">
+                    <?php echo $block->escapeHtml(__("View My Posts"));?></a></p>
+                </li>       
+            </ul>
+        </li>
+    <?php else : ?>
+        <li class='nav item'>   
+            <a href='<?php echo $block->escapeHtml($this->getUrl("wkblog/customer/addblogger")); ?>' role='button' class='btn' >
+                <?php echo $block->escapeHtml(__("Subscribe For Blogs"));?>  </a>
+        </li>
+    <?php endif; ?>
+<?php endif; ?>
+<?php $optionElements = [
+    'menu'  => '#wk-menu',
+    'wknewblog' => '#wknewblog',
+];
+$serializedData = $this->helper('Magento\Framework\Json\Helper\Data')->jsonEncode($optionElements);
+?>
+<script type="text/x-magento-init">
+{
+"*":{
+        "menuForPermitted":<?php /* @noEscape */ echo $serializedData; ?>
+    }
+}
+</script>

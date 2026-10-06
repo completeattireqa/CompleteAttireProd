@@ -1,0 +1,1 @@
+/opt/bitnami/apps/magento/htdocs/lib/web/mage/gallery/gallery.js

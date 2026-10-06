@@ -1,0 +1,47 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category    Webkul
+ * @package     Webkul_MpGroupedProduct
+ * @author      Webkul
+ * @copyright   Copyright (c) 2010-2017 Webkul Software Private Limited (https://webkul.com)
+ * @license     https://store.webkul.com/license.html
+ */
+?>
+
+<?php
+$productIds = $block->getAssociatedProducts();
+$productType = $block->getProductType();
+?>
+<?php if ($productType == 'grouped'): ?>
+<div id ="wk_mpgrouped_products">
+	<h3 id ="wk_heading_mpgrouped_products"> Grouped Products </h3>
+	<div id="grouped-product-container" data-mage-init='{"groupedProduct":{"gridPopup":"grouped_grid_popup"}}'>
+	    <div class="no-products-message">
+	        <?php /* @escapeNotVerified */ echo __('There are no grouped products.')?>
+	    </div>
+	    <?php echo $block->getChildHtml('list'); ?>
+	    <div data-role="add-product-dialog" class="no-display">
+	        <?php echo $block->getChildHtml();?>
+	    </div>
+	    <button class = "wk-add-grouped-button" type="button" data-role="add-product"><?php echo __('Add Products to Group') ?> </button>
+	</div>
+</div>
+<?php
+$optionElements = [
+'stockId'	=> '#qty',
+'buttonId' => '#save-btn',
+'productIds' => $productIds,
+'productType' => $productType
+];
+$serializedData = $this->helper('Magento\Framework\Json\Helper\Data')->jsonEncode($optionElements);
+?>
+<script type="text/x-magento-init">
+{
+"*":{
+		"groupedProductAdd":<?php /* @noEscape */ echo $serializedData; ?>
+	}
+}
+</script>
+<?php endif;?>

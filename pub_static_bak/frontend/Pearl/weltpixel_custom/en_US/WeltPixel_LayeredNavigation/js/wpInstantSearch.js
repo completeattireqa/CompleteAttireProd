@@ -1,0 +1,1 @@
+/opt/bitnami/apps/magento/htdocs/app/code/WeltPixel/LayeredNavigation/view/frontend/web/js/wpInstant

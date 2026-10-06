@@ -1,0 +1,22 @@
+{
+    "name": "webkul/payment-shipping-by-customer-group",
+    "description": "Hide Payment and Shipping By Customer Group For Magento 2",
+    "require": {
+        "magento/module-payment": "100.2.*",
+        "magento/module-shipping": "100.2.*",
+        "magento/module-customer": "101.0.*"
+    },
+    "type": "magento2-module",
+    "version": "2.0.0",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Webkul\\PaymentShippingByCustomerGroup\\": ""
+        }
+    }
+}

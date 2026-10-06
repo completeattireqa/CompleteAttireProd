@@ -1,0 +1,11 @@
+#menu{
+    display:block;
+    margin-top:8px;
+    margin-left:18px;
+}
+#wknewblog{
+    display:none;
+}
+ul {
+    list-style-type: none;
+}

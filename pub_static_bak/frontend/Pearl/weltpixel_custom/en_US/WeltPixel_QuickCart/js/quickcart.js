@@ -1,0 +1,1 @@
+/opt/bitnami/apps/magento/htdocs/app/code/WeltPixel/QuickCart/view/frontend/web/js/quickcart.js

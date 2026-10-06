@@ -1,0 +1,5 @@
+vendor/
+pub/static/
+var/
+generated/
+pub/media/

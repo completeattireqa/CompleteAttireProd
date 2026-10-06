@@ -1,0 +1,1 @@
+/opt/bitnami/apps/magento/htdocs/vendor/magento/module-instant-purchase/view/frontend/web/js/view/in

@@ -1,0 +1,35 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MarketplaceBaseShipping
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+$product_id=$this->getRequest()->getParam('id');
+$product_coll = $block->getProduct($product_id);
+$baseShippingHelper = $this->helper('\Webkul\MarketplaceBaseShipping\Helper\Data');
+$dimensionsUnit = $baseShippingHelper->getDimensionsUnit();
+?>
+<div class="field">
+    <label class="label"><?php echo __('Height').' ('.__($dimensionsUnit).')' ?></label>
+    <div class="control">
+        <input type="text" class="widthinput input-text validate-zero-or-greater" name="product[ts_dimensions_height]" value="<?php echo $product_coll['ts_dimensions_height'];?>"/>
+    </div>
+</div>
+<div class="field">
+    <label class="label"><?php echo __('Width').' ('.__($dimensionsUnit).')' ?></label>
+    <div class="control">
+        <input type="text" class="widthinput input-text validate-zero-or-greater" name="product[ts_dimensions_width]" value="<?php echo $product_coll['ts_dimensions_width'];?>"/>
+    </div>
+</div>
+<div class="field">
+    <label class="label"><?php echo __('Length').' ('.__($dimensionsUnit).')' ?></label>
+    <div class="control">
+        <input type="text" class="widthinput input-text validate-zero-or-greater" name="product[ts_dimensions_length]" value="<?php echo $product_coll['ts_dimensions_length'];?>"/>
+    </div>
+</div>

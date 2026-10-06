@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_ChatGPT
+ * @author    Webkul Software Private Limited
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="wk_chatgpt_prompt_templates" resource="default" engine="innodb" comment="ChatGPT Prompt Templates">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="varchar" name="template_title" nullable="false" comment="Prompt Template Title"/>
+        <column xsi:type="varchar" name="category" nullable="false" comment="Category"/>
+        <column xsi:type="varchar" name="sub_category" length="100" nullable="false" comment="Sub Category"/>
+        <column xsi:type="varchar" name="templates" length="100" nullable="false" comment="templates"/>
+        <column xsi:type="longtext" name="section_global" nullable="false" comment="Section Global Data"/>
+        <column xsi:type="longtext" name="section_inputs" nullable="false" comment="Section Dynamic Inputs"/>
+        <column xsi:type="longtext" name="prompt" nullable="false" comment="Prompt Template"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="false" comment="Update Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+</schema>

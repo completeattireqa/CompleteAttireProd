@@ -1,0 +1,1 @@
+/opt/bitnami/apps/magento/htdocs/app/code/Webkul/Marketplace/view/frontend/web/js/account/verify-sel

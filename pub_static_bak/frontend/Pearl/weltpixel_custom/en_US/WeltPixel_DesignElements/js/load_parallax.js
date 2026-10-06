@@ -1,0 +1,1 @@
+/opt/bitnami/apps/magento/htdocs/app/code/WeltPixel/DesignElements/view/frontend/web/js/load_paralla

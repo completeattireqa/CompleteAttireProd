@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software
+ *
+ * @category    Webkul
+ * @package     Webkul_Blog
+ * @author      Webkul
+ * @copyright   Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license     https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="Content_email_settings_status_waiting_notification" label="New Blogger Request Mail to Admin" file="status_waiting_notification.html" type="html" module="Webkul_Blog" area="frontend"/>
+    <template id="Content_email_settings_status_permitted_notification" label="Status Approval Mail to Bloggers " file="status_permitted_notification.html" type="html" module="Webkul_Blog" area="frontend"/>
+    <template id="Content_email_settings_comment_approval_notification" label="Comment Approval Mail to Bloggers" file="comment_approval_notification.html" type="html" module="Webkul_Blog" area="frontend"/>
+    <template id="Content_email_settings_comment_status_waiting_notification" label="New Comment Mail to Admin" file="comment_status_waiting_notification.html" type="html" module="Webkul_Blog" area="frontend"/>
+    <template id="Content_email_settings_status_notpermitted_notification" label="Status Disapproval Mail to Bloggers" file="status_notpermitted_notification.html" type="html" module="Webkul_Blog" area="frontend"/>
+    <template id="Content_email_settings_blog_notification" label="Blog Approval/Disapproval Mail to Bloggers" file="blog_notification.html" type="html" module="Webkul_Blog" area="frontend"/>
+    <template id="Content_email_settings_blog_approval_request" label="Blog Approval Mail to Admin" file="blog_approval_request.html" type="html" module="Webkul_Blog" area="frontend"/>
+    <template id="Content_email_settings_comment_onblog_notification" label="New comment Notification Mail to Bloggers" file="comment_onblog_notification.html" type="html" module="Webkul_Blog" area="frontend"/>
+</config>

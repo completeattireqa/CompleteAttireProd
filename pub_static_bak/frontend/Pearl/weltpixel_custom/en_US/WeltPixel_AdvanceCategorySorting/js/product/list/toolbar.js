@@ -1,0 +1,1 @@
+/opt/bitnami/apps/magento/htdocs/app/code/WeltPixel/AdvanceCategorySorting/view/frontend/web/js/prod

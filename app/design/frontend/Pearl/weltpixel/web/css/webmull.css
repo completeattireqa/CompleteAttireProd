@@ -1,0 +1,10 @@
+.grecaptcha-badge {z-index:9999 !important;}
+.affiliate-image {display: inline-block; margin-top: -1em; margin-left: 5em;}
+.affiliate-image img { height:100px;}
+.outfit_by div{display: inline-block;}
+.product-social-links .product-addto-links	{width: auto !important;}
+.product-social-links {display: flex;justify-content: space-around;align-items: center;}
+.product-addto-links.full-width-add-to, .mp_social_share_inline_under_cart, .action.mailto.friend{display: flex;justify-content: center;align-items: center;}
+.a2a_default_style .social-icons {margin: 0 3px !important}
+.si-facebook:hover, .si-colored.si-facebook {background-color:#1877f2 !important;}
+@media(min-width: 768px){.theme-pearl.product-page-v1 .product-addto-links{margin-bottom:0 !important;}}

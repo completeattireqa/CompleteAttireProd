@@ -1,0 +1,71 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Template for displaying grouped product price
+ */
+?>
+<?php
+$allProducts = $block->getSaleableItem()->getTypeInstance()->getAssociatedProducts($block->getSaleableItem());
+$priceHelper = $this->helper(\Magento\Framework\Pricing\Helper\Data::class);
+
+  $priceForAll = 0;
+if ($allProducts) {
+
+  $special='';
+  $priceForAllRegular='';
+  
+    foreach ($allProducts as $product) {
+		$productId = $product->getId();
+		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+		$_product = $objectManager->create('Magento\Catalog\Model\Product')->load($productId);
+
+		 $orgprice = $product->getFinalPrice();
+		//echo $specialprice = $product->getFinalPrice();
+		$productAllTierPrices = $_product->getData('tier_price');
+		
+		$specialprice = '';
+		if(is_array($productAllTierPrices)){
+			foreach($productAllTierPrices as $tierPrices){
+				$specialprice = $tierPrices['price'];
+			}
+		}
+
+		if ($specialprice){
+			$priceForAll += $specialprice;
+			$special='yes';
+		}else{
+			$priceForAll += $orgprice;
+		}
+		$priceForAllRegular += $orgprice;
+        
+    }
+}
+
+?>
+
+<div class="price-box" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+    <?php if ($priceForAll > 0 && \Magento\Framework\Pricing\Render::ZONE_ITEM_VIEW != $block->getZone()): ?>
+        <p class="grouped-price">
+            <span class="price-label">
+                <?= /* @escapeNotVerified */ __('Starting at') ?>
+            </span>
+            <span class="price">
+                <?= $formattedPrice = $priceHelper->currency($priceForAll, true, false); ?>
+            </span>
+			
+        
+			<?php if($special=='yes'){ ?>
+			<span class="old-price">
+				<span class="price"><?= $formattedPrice = $priceHelper->currency($priceForAllRegular, true, false); ?></span>   
+			</span>
+			<?php } ?>
+        </p>
+    <?php endif ?>
+</div>

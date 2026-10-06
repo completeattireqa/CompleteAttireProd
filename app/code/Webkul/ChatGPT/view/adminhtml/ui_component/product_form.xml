@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="content">
+        <htmlContent name="html_content">
+            <argument name="block" xsi:type="object">Webkul\ChatGPT\Block\Adminhtml\Product\Form\ChatGPT</argument>            <!-- and this the path to our block file through which we will call our template file -->
+        </htmlContent>
+    </fieldset>
+</form>

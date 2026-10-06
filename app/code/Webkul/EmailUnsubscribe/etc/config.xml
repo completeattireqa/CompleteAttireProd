@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Marketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <marketplace>
+            <email>
+                <seller_approve_notification_template>unsubscribe_email_seller_approve_notification_template</seller_approve_notification_template>
+                <seller_disapprove_notification_template>unsubscribe_email_seller_disapprove_notification_template</seller_disapprove_notification_template>
+                <seller_deny_notification_template>unsubscribe_email_seller_deny_notification_template</seller_deny_notification_template>
+                <product_deny_notification_template>unsubscribe_email_product_deny_notification_template</product_deny_notification_template>
+                <askproductquery_seller_template>unsubscribe_email_askproductquery_seller_template</askproductquery_seller_template>
+                <askquery_seller_template>unsubscribe_email_askquery_seller_template</askquery_seller_template>
+                <product_approve_notification_template>unsubscribe_email_product_approve_notification_template</product_approve_notification_template>
+                <product_disapprove_notification_template>unsubscribe_email_product_disapprove_notification_template</product_disapprove_notification_template>
+                <order_placed_notification_template>unsubscribe_email_order_placed_notification_template</order_placed_notification_template>
+                <order_invoiced_notification_template>unsubscribe_email_order_invoiced_notification_template</order_invoiced_notification_template>
+                <seller_transaction_notification_template>unsubscribe_email_seller_transaction_notification_template</seller_transaction_notification_template>
+                <low_stock_template>unsubscribe_email_low_stock_template</low_stock_template>
+            </email>
+        </marketplace>
+    </default>
+</config>
+

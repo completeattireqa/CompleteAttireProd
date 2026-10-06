@@ -1,0 +1,45 @@
+<div>
+<?php
+
+$transactions = $block->getOrderTransactions();
+
+if ($transactions->getSize() > 0) {
+    $flag = 0;
+    foreach ($transactions as $transaction) {
+        $transactionEscrowStatus = $block->checkEscrowStatus($transaction->getTxnId());
+        if ($transactionEscrowStatus && $transactionEscrowStatus == 'held') {
+            $flag = 1;
+            ?>
+                <div class="braintree-transactions">
+                    <a class="action- scalable primary" href="<?php /* @escapeNotVerified */ echo $block->getReleaseUrl($transaction->getTxnId()) ?>">
+                        <?php /* @escapeNotVerified */ echo __("Release From Escrow"); ?>
+                    </a>
+                    --
+                    <b><?php /* @escapeNotVerified */ echo $transaction->getTxnId(); ?></b>
+                </div>
+            <?php
+        } elseif ($transactionEscrowStatus == 'release_pending' || $transactionEscrowStatus == 'released') {
+            $flag = 1;
+            ?>
+                <div class="braintree-transactions">
+                    <span>
+                        <?php /* @escapeNotVerified */ echo __("Transaction released from escrow, current status: "); ?> <?php /* @escapeNotVerified */ echo $transactionEscrowStatus; ?>
+                    </span>
+                    --
+                    <b><?php /* @escapeNotVerified */ echo $transaction->getTxnId(); ?></b>
+                </div>
+            <?php
+        }
+    }
+    if ($flag == 0) {
+        ?>  
+        <note><b><?php /* @escapeNotVerified */ echo __("There are no escrowed transactions in this order"); ?><b></note>
+        <?php
+    }
+} else {
+    ?>
+    <note><b><?php /* @escapeNotVerified */ echo __("No transactions found in this order"); ?></b></note>
+    <?php
+}
+?>
+</div>

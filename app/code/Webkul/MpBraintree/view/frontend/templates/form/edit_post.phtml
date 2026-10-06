@@ -1,0 +1,292 @@
+<?php
+    if($block->isSeller()) {
+        $regionListLink = $block->getUrl(
+            'mpbraintree/ajax/regionlist',
+            ['_secure' => $this->getRequest()->isSecure()]
+        );
+        $submerchatDetails = $block->getMerchantBraintreeDetails();
+        $isTestMode = $block->isTestMode();
+        if ($isTestMode) {
+            $formFieldsIndividual = [
+                'firstName' => '',
+                'lastName' => '',
+                'email' => '',
+                'phone' => '',
+                'dateOfBirth' => '1981-11-19',
+                'ssn' => '',
+                'ssnLast4' => ''
+            ];
+            $formFieldsBusiness = [
+                'legalName' => '',
+                'dbaName' => '',
+                'taxId' => ''
+            ];
+            $formFieldsFunding = [
+                'descriptor' => '',
+                'destination' => '',
+                'email' => '',
+                'mobilePhone' => '5555555555',
+                'accountNumber' => '1123581321',
+                'routingNumber' => '071101307',
+                'accountNumberLast4' => '1123581321'
+            ];
+            $formFieldsAddress = [
+                'streetAddress' => '111 Main St',
+                'locality' => 'Chicago',
+                'region' => 'IL',
+                'postalCode' => '60622'
+            ];
+        } else {
+            $formFieldsIndividual = [
+                'firstName' => '',
+                'lastName' => '',
+                'email' => '',
+                'phone' => '',
+                'dateOfBirth' => '',
+                'ssn' => '',
+                'ssnLast4' => ''
+            ];
+            $formFieldsBusiness = [
+                'legalName' => '',
+                'dbaName' => '',
+                'taxId' => ''
+            ];
+            $formFieldsFunding = [
+                'descriptor' => '',
+                'destination' => '',
+                'email' => '',
+                'mobilePhone' => '',
+                'accountNumber' => '',
+                'routingNumber' => '',
+                'accountNumberLast4' => ''
+            ];
+            $formFieldsAddress = [
+                'streetAddress' => '',
+                'locality' => '',
+                'region' => '',
+                'postalCode' => ''
+            ];
+        }
+
+        $submerchantId = '';
+        $status = null;
+        if ($submerchatDetails) {
+
+            $formFieldsIndividual = $submerchatDetails->individual;
+
+            if (isset($submerchatDetails->business)) {
+                $formFieldsBusiness = $submerchatDetails->business;
+            }
+            $formFieldsFunding = $submerchatDetails->funding;
+            $formFieldsAddress = $formFieldsIndividual['address'];
+            $submerchantId = $submerchatDetails->id;
+            $status = $submerchatDetails->status;
+        }
+    ?>
+    <form
+        action="<?php
+            /* @escapeNotVerified */
+            echo $block->getUrl(
+            'mpbraintree/braintreeaccount/save',
+            ['_secure' => $this->getRequest()->isSecure()])
+        ?>"
+        enctype="multipart/form-data"
+        method="post"
+        id="braintree-vendor-form"
+        data-mage-init='{"validation":{}}'
+    >
+        <?php echo $block->getBlockHtml('seller.formkey')?>
+        <?php echo $block->getBlockHtml('formkey')?>
+        <fieldset class="fieldset mpbraintree-submerchant-container">
+            <div class="legend">
+                <?php if ($status) { ?>
+                <b><?php echo __("Status: "); ?><?php echo $status;  ?></b>
+                <?php } ?>
+                <button class="button action primary wk-mp-btn wk-mpbraintree-details" title="Save" type="submit">
+					<span><span>
+					<?php
+					/* @escapeNotVerified */ echo __('Save')
+					?>
+					</span></span>
+				</button>
+            </div>
+            <input type="hidden" value="<?php /* @escapeNotVerified */ echo $submerchantId; ?>" name="mpbraintree[id]" />
+            <fieldset class="fieldset">
+                <div class="legend"> <?php echo __("Marketplace Braintree Sub-merchant Individual Information") ?> </div>
+                <div class="field firstName required">
+                    <label class="label" for="firstName"><span><?php /* @escapeNotVerified */ echo __('First Name') ?></span></label>
+                    <div class="control">
+                        <input type="text" value="<?php /* @escapeNotVerified */ echo $formFieldsIndividual['firstName']; ?>" class="input-text required-entry" name="mpbraintree[individual][firstName]" id="firstName" />
+                    </div>
+                </div>
+
+                <div class="field lastName required">
+                    <label class="label" for="lastName"><span><?php /* @escapeNotVerified */ echo __('Last Name') ?></span></label>
+                    <div class="control">
+                        <input type="text" value="<?php /* @escapeNotVerified */ echo $formFieldsIndividual['lastName']; ?>" class="input-text required-entry" name="mpbraintree[individual][lastName]" id="lastName" />
+                    </div>
+                </div>
+
+                <div class="field email required">
+                    <label class="label" for="email"><span><?php /* @escapeNotVerified */ echo __('Email') ?></span></label>
+                    <div class="control">
+                        <input type="text" class="input-text required-entry validate-email" value="<?php /* @escapeNotVerified */ echo $formFieldsIndividual['email']; ?>" name="mpbraintree[individual][email]" id="email" class="required-entry email" />
+                    </div>
+                </div>
+
+                <div class="field phone">
+                    <label class="label" for="firstName"><span><?php /* @escapeNotVerified */ echo __('Phone') ?></span></label>
+                    <div class="control">
+                        <input type="text" value="<?php /* @escapeNotVerified */ echo $formFieldsIndividual['phone']; ?>" class="input-text" name="mpbraintree[individual][phone]" id="phone" />
+                    </div>
+                </div>
+
+                <div class="field dateOfBirth required">
+                    <label class="label" for="dateOfBirth"><span><?php /* @escapeNotVerified */ echo __('D.O.B') ?></span></label>
+                    <div class="control">
+                        <input type="text" value="<?php /* @escapeNotVerified */ echo $formFieldsIndividual['dateOfBirth']; ?>" class="required-entry input-text" name="mpbraintree[individual][dateOfBirth]" id="dateOfBirth" />
+                    </div>
+                </div>
+
+                <div class="field ssn">
+                    <label class="label" for="ssn"><span><?php /* @escapeNotVerified */ echo __('SSN') ?></span></label>
+                    <div class="control">
+                        <input type="text" class="input-text" value="<?php /* @escapeNotVerified */ echo $formFieldsIndividual['ssnLast4']; ?>" name="mpbraintree[individual][ssn]" id="ssn" />
+                        <note><?php /* @escapeNotVerified */ echo __("Only showing last 4 digits"); ?></note>
+                    </div>
+                </div>
+            </fieldset>
+
+            <?php if (!$submerchantId || $formFieldsBusiness['taxId']) { ?>
+            <div class="field isBusinessAccount required">
+
+                <?php if ($formFieldsBusiness['taxId']) { ?>
+                    <input type="hidden" name="isBusinessAccount" value="1" />
+                <?php } else { ?>
+                 <label class="label" for="isBusinessAccount"><?php /* @escapeNotVerified */ echo __('Register as a business') ?></label>
+                <input type="checkbox" class="checkbox" value="0" name="isBusinessAccount"  id="isBusinessAccount" />
+                <?php } ?>
+            </div>
+            <?php  if ($isTestMode && !$submerchantId) { $formFieldsBusiness['taxId'] = '98-7654321'; } ?>
+            <fieldset class="fieldset isBusinessAccountFieldset" <?php if(!$submerchantId) {echo 'style="display:none"'; } ?>>
+                <div class="legend"> <?php echo __("Marketplace Braintree Sub-merchant Business Information") ?> </div>
+
+                <div class="field legalName required">
+                    <label class="label" for="legalName"><span><?php /* @escapeNotVerified */ echo __('Legal Name') ?></span></label>
+                    <div class="control">
+                        <input type="text" class="input-text required-entry" value="<?php /* @escapeNotVerified */ echo $formFieldsBusiness['legalName']; ?>" name="mpbraintree[business][legalName]" id="legalName" />
+                    </div>
+                </div>
+
+                <div class="field dbaName">
+                    <label class="label" for="dbaName"><span><?php /* @escapeNotVerified */ echo __('DBA Name') ?></span></label>
+                    <div class="control">
+                        <input type="text" class="input-text" value="<?php /* @escapeNotVerified */ echo $formFieldsBusiness['dbaName']; ?>" name="mpbraintree[business][dbaName]" id="dbaName" />
+                    </div>
+                </div>
+
+                <div class="field taxId required">
+                    <label class="label" for="taxId"><span><?php /* @escapeNotVerified */ echo __('Tax Id') ?></span></label>
+                    <div class="control">
+                        <input type="text" class="input-text required-entry" value="<?php /* @escapeNotVerified */ echo $formFieldsBusiness['taxId']; ?>" name="mpbraintree[business][taxId]" id="taxId" />
+                    </div>
+                </div>
+            </fieldset>
+            <?php } else { ?>
+                <input type="hidden" name="isBusinessAccount" value="0" />
+            <?php } ?>
+            <fieldset class="fieldset">
+                <div class="legend"> <?php echo __("Marketplace Braintree Sub-merchant Funding Information") ?> </div>
+                <div class="field descriptor">
+                    <label class="label" for="descriptor"><span><?php /* @escapeNotVerified */ echo __('Descriptor') ?></span></label>
+                    <div class="control">
+                        <input type="text" class="input-text" value="<?php /* @escapeNotVerified */ echo $formFieldsFunding['descriptor']; ?>" name="mpbraintree[funding][descriptor]" id="descriptor" />
+                    </div>
+                </div>
+                <div class="field destination required">
+                    <label class="label" for="destination"><span><?php /* @escapeNotVerified */ echo __('Destination') ?></span></label>
+                    <div class="control">
+                        <select class="select required-entry" id="destination" name="mpbraintree[funding][destination]">
+                            <option <?php if ($formFieldsFunding['destination'] == 'bank') { echo "selected"; } ?> value="bank"><?php echo __("Bank") ?></option>
+                            <option <?php if ($formFieldsFunding['destination'] == 'mobile_phone') { echo "selected"; } ?> value="mobile_phone"><?php echo __("Mobile") ?></option>
+                            <option <?php if ($formFieldsFunding['destination'] == 'email') { echo "selected"; } ?> value="email"><?php echo __("Email") ?></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="field email required depend-on-destination email">
+                    <label class="label" for="email"><span><?php /* @escapeNotVerified */ echo __('Email') ?></span></label>
+                    <div class="control">
+                        <input type="text" class="input-text required-entry validate-email" value="<?php /* @escapeNotVerified */ echo $formFieldsFunding['email']; ?>" name="mpbraintree][funding[email]" id="email" />
+                    </div>
+                </div>
+
+                <div class="field mobilePhone required depend-on-destination mobile_phone">
+                    <label class="label" for="mobilePhone"><span><?php /* @escapeNotVerified */ echo __('Mobile Number') ?></span></label>
+                    <div class="control">
+                        <input type="text" class="input-text required-entry" value="<?php /* @escapeNotVerified */ echo $formFieldsFunding['mobilePhone']; ?>" name="mpbraintree[funding][mobilePhone]" id="mobilePhone" />
+                    </div>
+                </div>
+
+                <div class="field accountNumber required depend-on-destination bank">
+                    <label class="label" for="accountNumber"><span><?php /* @escapeNotVerified */ echo __('Account Number') ?></span></label>
+                    <div class="control">
+                        <input type="text" class="input-text required-entry" name="mpbraintree[funding][accountNumber]" value="<?php /* @escapeNotVerified */ echo $formFieldsFunding['accountNumberLast4']; ?>" id="accountNumber" />
+                        <note><?php /* @escapeNotVerified */ echo __("Only showing last 4 digits"); ?></note>
+                    </div>
+                </div>
+
+                <div class="field routingNumber required depend-on-destination bank">
+                    <label class="label" for="routingNumber"><span><?php /* @escapeNotVerified */ echo __('Routing Number') ?></span></label>
+                    <div class="control">
+                        <input type="text" class="input-text required-entry" name="mpbraintree[funding][routingNumber]" value="<?php /* @escapeNotVerified */ echo $formFieldsFunding['routingNumber']; ?>" id="routingNumber" />
+                    </div>
+                </div>
+
+            </fieldset>
+            <fieldset class="fieldset">
+                <div class="legend"> <?php echo __("Marketplace Braintree Sub-merchant Address Information") ?> </div>
+                <div class="field streetAddress required">
+                    <label class="label" for="streetAddress"><span><?php /* @escapeNotVerified */ echo __('Street Address') ?></span></label>
+                    <div class="control">
+                        <input type="text" class="input-text required-entry" value="<?php /* @escapeNotVerified */ echo $formFieldsAddress['streetAddress']; ?>" name="mpbraintree[address][streetAddress]" id="streetAddress" />
+                    </div>
+                </div>
+                <div class="field locality required">
+                    <label class="label" for="locality"><span><?php /* @escapeNotVerified */ echo __('Locality') ?></span></label>
+                    <div class="control">
+                        <input type="text" class="input-text required-entry" value="<?php /* @escapeNotVerified */ echo $formFieldsAddress['locality']; ?>" name="mpbraintree[address][locality]" id="locality" />
+                    </div>
+                </div>
+                <div class="field region required">
+                    <label class="label" for="region"><span><?php /* @escapeNotVerified */ echo __('Region') ?></span></label>
+                    <div class="control">
+                        <input type="text" class="input-text required-entry" value="<?php /* @escapeNotVerified */ echo $formFieldsAddress['region']; ?>" name="mpbraintree[address][region]" id="region" />
+                    </div>
+                </div>
+                <div class="field postalCode required">
+                    <label class="label" for="postalCode"><span><?php /* @escapeNotVerified */ echo __('Postal Code') ?></span></label>
+                    <div class="control">
+                        <input type="text" class="input-text required-entry" value="<?php /* @escapeNotVerified */ echo $formFieldsAddress['postalCode']; ?>" name="mpbraintree[address][postalCode]" id="postalCode" />
+                    </div>
+                </div>
+            </fieldset>
+            <div class="field tosAccepted required">
+                <label class="label" for="tosAccepted"><a target="__blank" href="<?php /* @escapeNotVerified */ echo $block->getTncLink(); ?>"><?php /* @escapeNotVerified */ echo __('Terms Of Services') ?></a></label>
+
+                <input type="checkbox" class="checkbox required-entry" name="mpbraintree[tosAccepted]"  id="tosAccepted" />
+
+            </div>
+        </fieldset>
+    </form>
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "Webkul_MpBraintree/js/mpBrainTreeEditJs": {
+                    "braintree":{
+                        "regionListAjaxUrl": "<?php echo $regionListLink; ?>"
+                    }
+                }
+            }
+        }
+    </script>
+<?php } ?>

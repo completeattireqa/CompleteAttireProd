@@ -1,0 +1,57 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Marketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<!--@subject Seller Status Change Notification  @-->
+<!--@vars {
+"var this.getUrl($store, 'customer/account/')":"Customer Account URL",
+"var customer.email":"Customer Email",
+"var customer.name":"Customer Name"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<table>
+    <tr class="email-intro">
+        <td>
+            <p class="greeting">{{trans "%customer_name," customer_name=$myvar1}}</p>
+        </td>
+    </tr>
+    <tr class="email-summary">
+        <td>
+        </td>
+    </tr>
+    <tr class="email-information">
+        <td>
+            <table class="query-details">
+                <tr>
+                    <td class="product-details">
+                        <p>{{trans "This is to inform you that you are disapproved from seller."}}</p>
+                        <p>{{trans "Please "}}<a href="{{var myvar2}}">{{trans "Click here " }}</a> {{trans "to login."}}</p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}
+
+<table>
+    <tr>
+        <td>
+            <p style="font-size:12px;">
+                You have received this message because you subscribed to receive communications from Complete
+                Attire L.L.C. This email was sent to {{var email}}. If you prefer not to receive further communications
+                from us. Please visit our <a href="{{var url}}">Unsubscribe</a> page to be removed from this list.
+            </p>
+        <td>
+    </tr>
+</table>

@@ -1,0 +1,1 @@
+/opt/bitnami/apps/magento/htdocs/vendor/magento/module-msrp/view/frontend/web/js/product/list/column

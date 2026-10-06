@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_PaymentShippingByCustomerGroup
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <dataSource name="customer_group_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">customer_group_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Magento_Customer::group</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="customer_group_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>customer_group_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <columns name="customer_group_columns">
+        <column name="shipping_methods" class="Webkul\PaymentShippingByCustomerGroup\Ui\Component\Listing\Columns\ShippingLabel" sortOrder="1">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Shipping Labels</label>
+            </settings>
+        </column>
+        <!-- <column name="payment_methods"  class="Webkul\PaymentShippingByCustomerGroup\Ui\Component\Listing\Columns\PaymentLabel" sortOrder="1">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Payment Labels</label>
+            </settings>
+        </column> -->
+    </columns>
+</listing>

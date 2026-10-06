@@ -1,0 +1,72 @@
+ <?php
+/**
+ * Webkul Software
+ *
+ * @category    Webkul
+ * @package     Webkul_Blog
+ * @author      Webkul
+ * @copyright   Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license     https://store.webkul.com/license.html
+ */
+ $customerId = $block-> getcustomerId();
+ $limit = $this->helper('Webkul\Blog\Helper\Data')->getCharacterLimit();
+ $collection = $block->getBlogCollection();
+ $collectionSize = $collection->getSize(); ?>
+<div class='wk-big'>
+    <div class = 'container'>
+        <?php if ($collectionSize) { ?>
+            <?php foreach ($collection as $blog) { ?>
+                <div class='wk-blog-block'>
+                    <h2 class='WK_textcolor'>
+                        <a href='<?php  echo $block->escapeHtml($this->getUrl()); ?>wkblog/blog/title/blogid/<?php  echo $block->escapeHtml($blog->getId());?>' role='button' class='btn'>
+                            <div class='title'><?php echo $block->escapeHtml($blog->getSubject());?></div>
+                        </a>
+                    </h2>
+                    <p class = 'post-meta tags' style='margin-top:20px;'>
+                        <span class='date'><?php echo $block->escapeHtml($blog->getCreatedAt()); ?></span>
+                        <a href='<?php echo $block->escapeHtml($this->getUrl()); ?>wkblog/blog/user/userid/<?php  echo $block->escapeHtml($blog->getUserId());?>' role='button' class='btn'>
+                            <span class='author'><?php echo $block->escapeHtml($blog->getCustomerName()); ?></span>
+                        </a>
+                        <?php if ($blog->getCategory() != "") : ?>
+                            <?php if ($blog->getStatus() != 0) : ?>
+                                <a href='<?php echo $block->escapeHtml($this->getUrl()); ?>wkblog/category/category/categoryid/<?php echo $block->escapeHtml($blog->getCategoryId());?>' role='button' class='btn'>
+                                    <span class='cats'><?php echo $block->escapeHtml($blog->getCategory())?></span>
+                                </a>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </p>
+                    <?php if (strlen($blog->getContent()) > $limit) : ?>
+                        <?php $content = substr(strip_tags($blog->getContent()), 0, $limit)."..."; ?>
+                    <?php else : ?>
+                        <?php $content = strip_tags($blog->getContent()); ?>
+                    <?php endif; ?>                    
+                    <?php echo "<div class='WK_tbodyingedit_content'>".$content."</div>"; ?>
+                    <p class='tags'>
+                        <span class='tag'>
+                            <?php $tags = $block->escapeHtml($blog->getTag());
+                            $tagsArray = explode(',', $tags); ?>
+                            <?php foreach ($tagsArray as $tag) : ?>
+                                <?php if ($tag != "") : ?>
+                                    <a href='<?php  echo $block->escapeHtml($this->getUrl()); ?>wkblog/blog/tag/tag/<?php echo $block->escapeHtml($tag);?>' role='button' class='btn'><span class='tag'><?php echo $block->escapeHtml($tag);?> ,</span></a>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </span>
+                    </p>
+                    <hr>
+                </div>
+            <?php } ?>
+        <?php } else { ?>
+            <?php echo "<div class='WK_tbodyingedit_content'>No Post Exists!</div>"; ?>
+        <?php } ?>
+        <?php if ($block->getPagerHtml()) : ?>
+            <div class="order-products-toolbar toolbar bottom"><?php /* @escapeNotVerified */ echo $block->getPagerHtml(); ?></div>
+        <?php endif ?>
+        <div class='wk-footer'>
+            <div class="buttons-set">
+                <p class="back-link">
+                    <a class="left" onclick="javascript: window.history.back();" href="javascript:;">« Back</a>
+                </p>
+            </div> 
+        </div>
+    </div>  
+</div>

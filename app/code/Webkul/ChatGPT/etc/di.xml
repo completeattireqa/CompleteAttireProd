@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Webkul\ChatGPT\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Webkul\ChatGPT\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">chatgptlogger</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">Webkul\ChatGPT\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Webkul\ChatGPT\Ui\Component\MassAction\ImportContent\Stores">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="urlPath" xsi:type="string">chatgpt/chatgpt/index</item>
+                <item name="paramName" xsi:type="string">store_id</item>
+                <item name="promptTarget" xsi:type="string">promptTarget</item>
+                <item name="confirm" xsi:type="array">
+                    <item name="title" xsi:type="string" translatable="true">Import AI Content</item>
+                    <item name="message" xsi:type="string" translatable="true">Are you sure want to import AI Content For selected items?</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Webkul\ChatGPT\Ui\Component\MassAction\ImportContent\Cms\Content">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="urlPath" xsi:type="string">chatgpt/chatgpt/index</item>
+                <item name="paramName" xsi:type="string">content_type</item>
+                <item name="promptTarget" xsi:type="string">promptTarget</item>
+                <item name="confirm" xsi:type="array">
+                    <item name="title" xsi:type="string" translatable="true">Import AI Content</item>
+                    <item name="message" xsi:type="string" translatable="true">Are you sure want to import AI Content For selected items?</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Webkul\ChatGPT\Model\ResourceModel\PromptTemplates\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">wk_chatgpt_prompt_templates</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\ChatGPT\Model\ResourceModel\PromptTemplates</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="prompt_templates_data_source" xsi:type="string">Webkul\ChatGPT\Model\ResourceModel\PromptTemplates\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Config\Model\Config">
+        <plugin name="admin_system_config_save_plugin" type="Webkul\ChatGPT\Plugin\ConfigSave" sortOrder="1"/>
+    </type>
+</config>

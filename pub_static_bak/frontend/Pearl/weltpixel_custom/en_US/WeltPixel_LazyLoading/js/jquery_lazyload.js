@@ -1,0 +1,1 @@
+/opt/bitnami/apps/magento/htdocs/app/code/WeltPixel/LazyLoading/view/frontend/web/js/jquery_lazyload

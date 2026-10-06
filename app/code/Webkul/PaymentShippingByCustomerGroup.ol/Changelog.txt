@@ -1,0 +1,10 @@
+Legend
+
++ Features
+- Bugs
+
+-------------------------------- Version 2.0.0 --------------------------------------
+    +   Compatible with Magento 2.2.x
+    +   Once the module is installed, the admin can hide payments and shipping methods according to customer groups.
+    +   The methods can be set in system configurations and in customer group panel.
+    +   If methods are not set in customer groups, the methods set in system configurations will be visible to the customer.

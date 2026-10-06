@@ -1,0 +1,80 @@
+<!--
+/**
+* Webkul Software.
+*
+* @category  Webkul
+* @package   Webkul_ChatGPT
+* @author    Webkul Software Private Limited
+* @copyright Webkul Software Private Limited (https://webkul.com)
+* @license   https://store.webkul.com/license.html
+*/
+-->
+<?php
+$data = $block->getSelectedProducts();
+$productCount = $data['totalCount'];
+$productIds = $data['productIds'];
+$storeId = $block->getRequest()->getParam('store_id');
+$promptTarget = $block->getRequest()->getParam('promptTarget');
+$contentType = $block->getRequest()->getParam('content_type');
+
+?>
+<fieldset class="fieldset">
+    <input type="hidden" id="wk_current_store_id" value="<?= $block->escapeHtml($storeId) ?>">
+    <input type="hidden" id="prompt_target" value="<?= $block->escapeHtml($promptTarget) ?>">
+    <input type="hidden" id="content_type" value="<?= $block->escapeHtml($contentType) ?>">
+    <div class="wk-mu-note wk-mu-box">
+        <?=$block->escapeHtml(__('Starting Execution')); ?>...
+    </div>
+    <div class="wk-mu-notice wk-mu-box">
+        <?= $block->escapeHtml(
+            __("Please don't close or refresh the window while writing content for %1(s).", $promptTarget)
+        ); ?>
+    </div>
+    <div class="wk-mu-success wk-mu-box">
+        <?=$block->escapeHtml(__('Total ')); ?>
+        <?=$block->escapeHtml($productCount); ?><?=$block->escapeHtml(__(' %1(s) to complete', $promptTarget)); ?>.
+    </div>
+    <?php if ($productCount > 0): ?>
+        <div class="wk-mu-info-bar">
+            <?=$block->escapeHtml(__('Writing Content ')); ?> 
+            <span class="wk-current">1</span> of <?=$block->escapeHtml($productCount);?>
+            <img id="loader-image"  style="float:right;"
+            src="<?=$block->escapeHtml($block->getViewFileUrl('Webkul_ChatGPT::images/loader.gif'));?>" />
+        </div>
+        <div class="wk-mu-progress-bar">
+            <div class="wk-mu-progress-bar-current"></div>
+        </div>
+        <div class="wk-mu-error-msg-container">
+        </div>
+        <div class="wk-mu-go-back-on-completion wk-display-none">
+            <a href="<?= /*@noEscape*/ $block->getRefererUrl() ?>"><button type="button" 
+            class="action-default primary"><?= $block->escapeHtml(__('Go Back')) ?></button></a>
+        </div>
+    <?php else: ?>
+        <div class="wk-mu-note wk-mu-box">
+            <?=$block->escapeHtml(__('No product to import.')); ?>
+        </div>
+        <div class="wk-mu-note wk-mu-box">
+            <?=$block->escapeHtml(__('Finished Execution.')); ?>
+        </div>
+    <?php endif; ?>
+</fieldset>
+<?php
+    $releventData = [
+        'importUrl' => $block->getUrl('chatgpt/chatgpt/generatecontent'),
+        'fieldsetSelector'    => '.fieldset',
+        'progressBarSelector'    => '.wk-mu-progress-bar-current',
+        'infoBarSelector'    => '.wk-mu-info-bar',
+        'currentSelector'    => '.wk-current',
+        'productCount'        => $productCount,
+        'productIds'            => $productIds
+    ];
+    $serializedData = $block->jsonHelper->jsonEncode($releventData);
+    ?>
+<script type="text/x-magento-init">
+    {
+        "body":{
+            "productProfiler":<?=/*_ @noEscape _*/$serializedData; ?>
+        }
+    }
+</script>
